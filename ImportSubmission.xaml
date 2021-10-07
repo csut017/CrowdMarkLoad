@@ -11,7 +11,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1313,1506</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1123,1506</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ImportSubmission_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="26">
@@ -257,7 +257,7 @@
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Sequence sap2010:Annotation.AnnotationText="Now that we have the student, we can load all the components into their submission." DisplayName="Upload Assignment Components" sap:VirtualizedContainerService.HintSize="632,3587" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence sap2010:Annotation.AnnotationText="Now that we have the student, we can load all the components into their submission." DisplayName="Upload Assignment Components" sap:VirtualizedContainerService.HintSize="632,3570" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:Boolean" Name="dueDateMessageExists" />
                     <Variable x:TypeArguments="x:Int32" Name="answerNumber" />
@@ -338,9 +338,9 @@
                       <InArgument x:TypeArguments="x:Int32">0</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <ui:InterruptibleWhile sap2010:Annotation.AnnotationText="Repeat the loop once per answer and upload each item." DisplayName="Process Each Answer" sap:VirtualizedContainerService.HintSize="590,1914" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+                  <ui:InterruptibleWhile sap2010:Annotation.AnnotationText="Repeat the loop once per answer and upload each item." DisplayName="Process Each Answer" sap:VirtualizedContainerService.HintSize="590,2045" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
                     <ui:InterruptibleWhile.Body>
-                      <Sequence DisplayName="Process Each Specific Answer" sap:VirtualizedContainerService.HintSize="554,1718" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                      <Sequence DisplayName="Process Each Specific Answer" sap:VirtualizedContainerService.HintSize="554,1849" sap2010:WorkflowViewState.IdRef="Sequence_11">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="x:String" Name="answerSelector" />
                           <Variable x:TypeArguments="x:Boolean" Name="doesAnswerExist" />
@@ -363,6 +363,7 @@
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
                         </Assign>
+                        <ui:LogMessage DisplayName="Log the current answer" sap:VirtualizedContainerService.HintSize="512,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Trace" Message="[&quot;Processing answer #&quot; + answerNumber.ToString]" />
                         <Assign sap2010:Annotation.AnnotationText="We need to generate the selector to find each answer. Storing it means we can reuse it for both checking and clicking." DisplayName="Generate Selector" sap:VirtualizedContainerService.HintSize="512,117" sap2010:WorkflowViewState.IdRef="Assign_7">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:String">[answerSelector]</OutArgument>
@@ -483,7 +484,7 @@
                       </Sequence>
                     </ui:InterruptibleWhile.Body>
                     <ui:InterruptibleWhile.Condition>
-                      <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="answerNumber &lt;= numberOfAnswers" />
+                      <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="answerNumber &lt;= numberOfAnswers" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
                     </ui:InterruptibleWhile.Condition>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -491,10 +492,10 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:InterruptibleWhile>
-                  <Sequence sap2010:Annotation.AnnotationText="Now that we have finished with the student, we need to close the view." DisplayName="Clean Up" sap:VirtualizedContainerService.HintSize="590,271" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                  <Sequence sap2010:Annotation.AnnotationText="Now that we have finished with the student, we need to close the view." DisplayName="Clean Up" sap:VirtualizedContainerService.HintSize="590,123" sap2010:WorkflowViewState.IdRef="Sequence_6">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                         <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       </scg:Dictionary>

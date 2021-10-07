@@ -1,16 +1,17 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ProcessDownload" this:ProcessDownload.submissionFilePath="C:\temp\submissions.zip" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:uascw="clr-namespace:UiPath.Activities.System.Compression.Workflow;assembly=UiPath.System.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ProcessDownload" this:ProcessDownload.submissionFilePath="C:\temp\submissions.zip" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:uascw="clr-namespace:UiPath.Activities.System.Compression.Workflow;assembly=UiPath.System.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="submissionFilePath" Type="InArgument(x:String)" />
     <x:Property Name="submissionsWorkFolder" Type="OutArgument(x:String)" />
     <x:Property Name="uploadTrackingFile" Type="OutArgument(x:String)" />
+    <x:Property Name="students" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1123,1621</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1123,1007</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessDownload_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="27">
+    <scg:List x:TypeArguments="x:String" Capacity="66">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -38,6 +39,13 @@
       <x:String>UiPath.Shared.Activities</x:String>
       <x:String>System.Collections.ObjectModel</x:String>
       <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -75,7 +83,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="This sequence will process the the downloaded submissions and get them into a state that can be uploaded." DisplayName="Process Download" sap:VirtualizedContainerService.HintSize="815,1516" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="This sequence will process the the downloaded submissions and get them into a state that can be uploaded." DisplayName="Process Download" sap:VirtualizedContainerService.HintSize="526,942" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="doesTrackingFileExist" />
     </Sequence.Variables>
@@ -85,8 +93,8 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log start of process download" sap:VirtualizedContainerService.HintSize="773,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Start processing download file&quot;]" />
-    <Sequence sap2010:Annotation.AnnotationText="Initialise some variables for this workflow, mainly paths." DisplayName="Initialise variables" sap:VirtualizedContainerService.HintSize="773,108" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <ui:LogMessage DisplayName="Log start of process download" sap:VirtualizedContainerService.HintSize="484,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Start processing download file&quot;]" />
+    <Sequence sap2010:Annotation.AnnotationText="Initialise some variables for this workflow, mainly paths." DisplayName="Initialise variables" sap:VirtualizedContainerService.HintSize="484,108" sap2010:WorkflowViewState.IdRef="Sequence_4">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -99,7 +107,7 @@
           <OutArgument x:TypeArguments="x:String">[submissionsWorkFolder]</OutArgument>
         </Assign.To>
         <Assign.Value>
-          <InArgument x:TypeArguments="x:String">[Path.GetFileNameWithoutExtension(submissionFilePath)]</InArgument>
+          <InArgument x:TypeArguments="x:String">[Path.Combine(Path.GetDirectoryName(submissionFilePath), Path.GetFileNameWithoutExtension(submissionFilePath))]</InArgument>
         </Assign.Value>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -107,6 +115,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </Assign>
+      <ui:LogMessage DisplayName="Log work folder" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Submissions work folder is &quot; + submissionsWorkFolder]" />
       <Assign sap2010:Annotation.AnnotationText="The tracking file keeps track of what has been done in the upload process. It is also used for resuming an upload if the process is stopped for some reason." DisplayName="Generate tracking file path" sap:VirtualizedContainerService.HintSize="334,132" sap2010:WorkflowViewState.IdRef="Assign_2">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[uploadTrackingFile]</OutArgument>
@@ -120,6 +129,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </Assign>
+      <ui:LogMessage DisplayName="Log tracking file" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Upload tracking file is &quot; + uploadTrackingFile]" />
       <ui:PathExists sap2010:Annotation.AnnotationText="Need to check if the tracking file exists: if it does we are restarting rather than starting from stratch." DisplayName="Check if tracking file exists" Exists="[doesTrackingFileExist]" sap:VirtualizedContainerService.HintSize="334,131" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[uploadTrackingFile]" PathType="File">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -127,32 +137,82 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:PathExists>
+      <ui:BuildDataTable sap2010:Annotation.AnnotationText="Build the structure of the tracking table." DataTable="[students]" DisplayName="Generate tracking table" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;StudentID&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Status&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;                &lt;xs:element name=&quot;Answers&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;&lt;/NewDataSet&gt;">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:BuildDataTable>
     </Sequence>
-    <If sap2010:Annotation.AnnotationText="We can be in one of two modes: restart, where a previous upload has stopped unexpectedly, or new start, where there is no existing data." Condition="[doesTrackingFileExist]" DisplayName="Handle start mode" sap:VirtualizedContainerService.HintSize="773,983" sap2010:WorkflowViewState.IdRef="If_1">
+    <If sap2010:Annotation.AnnotationText="We can be in one of two modes: restart, where a previous upload has stopped unexpectedly, or new start, where there is no existing data." Condition="[doesTrackingFileExist]" DisplayName="Handle start mode" sap:VirtualizedContainerService.HintSize="484,398" sap2010:WorkflowViewState.IdRef="If_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence sap2010:Annotation.AnnotationText="In a restart scenario, we have already extracted everything and we have a trcking file we can use. Therefore, we just need to reload the file and determine which submissions to upload." DisplayName="Restart sequence" sap:VirtualizedContainerService.HintSize="200,200" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence sap2010:Annotation.AnnotationText="In a restart scenario, we have already extracted everything and we have a trcking file we can use. Therefore, we just need to reload the file and determine which submissions to upload." DisplayName="Restart sequence" sap:VirtualizedContainerService.HintSize="200,183" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="sd:DataTable" Name="currentTracking" />
+          </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
               <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
+          <ui:LogMessage DisplayName="Log restart scenario" sap:VirtualizedContainerService.HintSize="560,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Tracking file does exists - restart mode&quot;]" />
+          <ui:ReadCsvFile Encoding="{x:Null}" sap2010:Annotation.AnnotationText="Read in the existing tracking file so we can work out which submissions need to be uploaded." DataTable="[currentTracking]" Delimitator="Comma" DisplayName="Read existing tracking file" FilePath="[uploadTrackingFile]" sap:VirtualizedContainerService.HintSize="560,194" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ReadCsvFile>
+          <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="We need to check the existing submissions and only add the submissions that have not be processed yet (have no status.)" DataTable="[currentTracking]" DisplayName="Check each existing submission" sap:VirtualizedContainerService.HintSize="560,491" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:ForEachRow.Body>
+              <ActivityAction x:TypeArguments="sd:DataRow">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="sd:DataRow" Name="submission" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Check submission" sap:VirtualizedContainerService.HintSize="526,329" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[string.IsNullOrWhiteSpace(submission.Item(1).ToString)]" DisplayName="Does submission have a status?" sap:VirtualizedContainerService.HintSize="484,237" sap2010:WorkflowViewState.IdRef="If_3">
+                    <If.Then>
+                      <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{submission.Item(0).ToString, string.Empty, string.Empty}]" DataTable="[students]" DisplayName="Add existing submission" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                    </If.Then>
+                  </If>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEachRow.Body>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ForEachRow>
+          <ui:LogMessage DisplayName="Log number of existing submissions to upload" sap:VirtualizedContainerService.HintSize="560,91" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Found &quot; + students.Rows.Count.ToString + &quot; submission(s) to upload&quot;]" />
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap2010:Annotation.AnnotationText="In a new start scenario, we don't have any data. Therefore we need to extract the zip file and get the list of student IDs. We'll save these in the tracking file to simplify future starts with the same data." DisplayName="New start sequence" sap:VirtualizedContainerService.HintSize="528,794" sap2010:WorkflowViewState.IdRef="Sequence_6">
+        <Sequence sap2010:Annotation.AnnotationText="In a new start scenario, we don't have any data. Therefore we need to extract the zip file and get the list of student IDs. We'll save these in the tracking file to simplify future starts with the same data." DisplayName="New start sequence" sap:VirtualizedContainerService.HintSize="200,198" sap2010:WorkflowViewState.IdRef="Sequence_6">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
               <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Sequence sap2010:Annotation.AnnotationText="We can't assume a clean state, therefore we will delete any old data that exists." DisplayName="Clean up" sap:VirtualizedContainerService.HintSize="486,123" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <ui:LogMessage DisplayName="Log new start scenario" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Tracking file does not exist - new start mode&quot;]" />
+          <Sequence sap2010:Annotation.AnnotationText="We can't assume a clean state, therefore we will delete any old data that exists." DisplayName="Clean up" sap:VirtualizedContainerService.HintSize="334,123" sap2010:WorkflowViewState.IdRef="Sequence_7">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="doesSubmissionsFolderExist" />
             </Sequence.Variables>
@@ -163,7 +223,7 @@
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:PathExists DisplayName="Check if the submissions folder exists" Exists="[doesSubmissionsFolderExist]" sap:VirtualizedContainerService.HintSize="484,89" sap2010:WorkflowViewState.IdRef="PathExists_2" Path="[submissionsWorkFolder]" PathType="File" />
+            <ui:PathExists DisplayName="Check if the submissions folder exists" Exists="[doesSubmissionsFolderExist]" sap:VirtualizedContainerService.HintSize="484,89" sap2010:WorkflowViewState.IdRef="PathExists_2" Path="[submissionsWorkFolder]" PathType="Folder" />
             <If Condition="[doesSubmissionsFolderExist]" DisplayName="Handle existing submissions folder" sap:VirtualizedContainerService.HintSize="484,256" sap2010:WorkflowViewState.IdRef="If_2">
               <If.Then>
                 <ui:Delete ContinueOnError="False" DisplayName="Delete existing submissions folder" sap:VirtualizedContainerService.HintSize="284,79" sap2010:WorkflowViewState.IdRef="Delete_1" Path="[submissionsWorkFolder]" />
@@ -171,11 +231,12 @@
             </If>
             <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="Make work folder" sap:VirtualizedContainerService.HintSize="484,79" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[submissionsWorkFolder]" />
           </Sequence>
-          <Sequence sap2010:Annotation.AnnotationText="Step 1: extract all the files from the zip file to a folder." DisplayName="Extract all submissions" sap:VirtualizedContainerService.HintSize="486,482" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence sap2010:Annotation.AnnotationText="Step 1: extract all the files from the zip file to a folder." DisplayName="Extract all submissions" sap:VirtualizedContainerService.HintSize="334,108" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                 <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <uascw:ExtractFiles DestinationFolderInfo="{x:Null}" Password="{x:Null}" sap2010:Annotation.AnnotationText="Extract the files to the folder." CodePage="Default" DestinationFolder="[submissionsWorkFolder]" DisplayName="Extract all files" ExtractToADedicatedFolder="False" FileToExtract="[submissionFilePath]" sap:VirtualizedContainerService.HintSize="444,236" sap2010:WorkflowViewState.IdRef="ExtractFiles_1" SkipUnsupportedFiles="False">
@@ -185,17 +246,125 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </uascw:ExtractFiles>
-            <Sequence DisplayName="Generate list of submissions" sap:VirtualizedContainerService.HintSize="444,83" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          </Sequence>
+          <Sequence sap2010:Annotation.AnnotationText="Step 2: we need to get the list of unique student IDs. Depending on the Inspera exam type, there could be multiple files with the same student ID." DisplayName="Generate list of submissions" sap:VirtualizedContainerService.HintSize="334,168" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="scg:Dictionary(x:String, x:Boolean)" Name="uniqueIDs">
+                <Variable.Default>
+                  <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Boolean)" ExpressionText="new Dictionary(of string, Boolean)" />
+                </Variable.Default>
+              </Variable>
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="Check each file" sap:VirtualizedContainerService.HintSize="412,736" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Directory.GetFiles(submissionsWorkFolder)]">
+              <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="x:String">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="x:String" Name="filename" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Process file" sap:VirtualizedContainerService.HintSize="376,602" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="s:String[]" Name="parts" />
+                      <Variable x:TypeArguments="x:String" Name="studentID" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:LogMessage DisplayName="Log file being checked" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Trace" Message="[&quot;Checking &quot; + filename]" />
+                    <Assign sap2010:Annotation.AnnotationText="Split the filename into its parts." DisplayName="Split filename into parts" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="Assign_3">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="s:String[]">[parts]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="s:String[]">[Split( Path.GetFileNameWithoutExtension(filename), "_")]</InArgument>
+                      </Assign.Value>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </Assign>
+                    <Assign sap2010:Annotation.AnnotationText="The first element is the student ID." DisplayName="Get the student ID" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="Assign_4">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[studentID]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[parts(0)]</InArgument>
+                      </Assign.Value>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </Assign>
+                    <Assign sap2010:Annotation.AnnotationText="We'll use a dictionary trick here and store each ID as true. Only the first call will add the ID to the dictionary." DisplayName="Store unique IDs" sap:VirtualizedContainerService.HintSize="334,117" sap2010:WorkflowViewState.IdRef="Assign_5">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Boolean">[uniqueIDs(studentId)]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                      </Assign.Value>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </Assign>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEach.Body>
+            </ui:ForEach>
+            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Copy the student IDs from the dictionary to the data table." DisplayName="Add student IDs" sap:VirtualizedContainerService.HintSize="412,290" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[uniqueIDs.Keys]">
+              <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="x:String">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="x:String" Name="studentID" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Copy student ID" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{studentID, string.Empty, string.Empty}]" DataTable="[students]" DisplayName="Add student ID to table" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEach.Body>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-            </Sequence>
+            </ui:ForEach>
           </Sequence>
+          <Sequence sap2010:Annotation.AnnotationText="Step 3: save an initial tracking file that we can use for future runs." DisplayName="Save tracking file" sap:VirtualizedContainerService.HintSize="334,123" sap2010:WorkflowViewState.IdRef="Sequence_8">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" sap2010:Annotation.AnnotationText="Write the students as a CSV file." DataTable="[students]" Delimitator="Comma" DisplayName="Save as CSV file" FilePath="[uploadTrackingFile]" sap:VirtualizedContainerService.HintSize="334,183" sap2010:WorkflowViewState.IdRef="WriteCsvFile_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:WriteCsvFile>
+          </Sequence>
+          <ui:LogMessage DisplayName="Log number of new submissions to upload" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Found &quot; + students.Rows.Count.ToString + &quot; submission(s) to upload&quot;]" />
         </Sequence>
       </If.Else>
     </If>
-    <ui:LogMessage DisplayName="Log end of process download" sap:VirtualizedContainerService.HintSize="773,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Completed processing download file&quot;]" />
+    <ui:LogMessage DisplayName="Log end of process download" sap:VirtualizedContainerService.HintSize="484,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Completed processing download file&quot;]" />
   </Sequence>
 </Activity>
