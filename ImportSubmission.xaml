@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ImportSubmission" this:ImportSubmission.studentId="2513467" this:ImportSubmission.numberOfAnswers="9" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ImportSubmission" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="studentId" Type="InArgument(x:Int32)">
       <x:Property.Attributes>
@@ -7,6 +7,7 @@
     </x:Property>
     <x:Property Name="outcome" Type="OutArgument(x:String)" />
     <x:Property Name="numberOfAnswers" Type="InArgument(x:Int32)" />
+    <x:Property Name="submissionsWorkFolder" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -44,7 +45,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="28">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="27">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -72,7 +73,6 @@
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="This workflow will attach to the current open browser, find the student, and upload all the questions for their assessment." DisplayName="Upload Student Submission" sap:VirtualizedContainerService.HintSize="602,1441" sap2010:WorkflowViewState.IdRef="Sequence_3">
@@ -83,7 +83,7 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Upload Has Started" sap:VirtualizedContainerService.HintSize="560,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Starting submission upload process for &quot; + studentId.ToString]" />
-    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" sap2010:Annotation.AnnotationText="Attach to an existing open browser. &#xD;&#xA;!! This action assumes the browser is open to the correct assignment. !!" BrowserType="Chrome" DisplayName="Attach to Open Browser" sap:VirtualizedContainerService.HintSize="560,1045" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="1093fc9d7c06786cc6418c138e997596" Selector="&lt;html app='chrome.exe' title='* | Crowdmark' /&gt;">
+    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" sap2010:Annotation.AnnotationText="Attach to an existing open browser. &#xA;!! This action assumes the browser is open to the correct assignment. !!" BrowserType="Chrome" DisplayName="Attach to Open Browser" sap:VirtualizedContainerService.HintSize="560,1045" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="1093fc9d7c06786cc6418c138e997596" Selector="&lt;html app='chrome.exe' title='* | Crowdmark' /&gt;">
       <ui:BrowserScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
@@ -101,7 +101,7 @@
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Sequence sap2010:Annotation.AnnotationText="First, we need to find the student.&#xD;&#xA;This activity should not make any assumptions:&#xD;&#xA;* Change to the students view&#xD;&#xA;* Handle a missing student" DisplayName="Find the Student" sap:VirtualizedContainerService.HintSize="484,168" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <Sequence sap2010:Annotation.AnnotationText="First, we need to find the student.&#xA;This activity should not make any assumptions:&#xA;* Change to the students view&#xA;* Handle a missing student" DisplayName="Find the Student" sap:VirtualizedContainerService.HintSize="484,168" sap2010:WorkflowViewState.IdRef="Sequence_4">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -257,7 +257,7 @@
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Sequence sap2010:Annotation.AnnotationText="Now that we have the student, we can load all the components into their submission." DisplayName="Upload Assignment Components" sap:VirtualizedContainerService.HintSize="632,3570" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence sap2010:Annotation.AnnotationText="Now that we have the student, we can load all the components into their submission." DisplayName="Upload Assignment Components" sap:VirtualizedContainerService.HintSize="632,3987" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:Boolean" Name="dueDateMessageExists" />
                     <Variable x:TypeArguments="x:Int32" Name="answerNumber" />
@@ -270,7 +270,7 @@
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
                   <ui:LogMessage DisplayName="Log Student Found" sap:VirtualizedContainerService.HintSize="590,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Found student &quot; + studentId.ToString + &quot;: uploading submission&quot;]" />
-                  <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" sap2010:Annotation.AnnotationText="Clicking on this link will take us to the student's submission.&#xD;&#xA;This space should be empty, but we can't assume this state." ClickType="CLICK_SINGLE" DisplayName="View submission" sap:VirtualizedContainerService.HintSize="590,178" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                  <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" sap2010:Annotation.AnnotationText="Clicking on this link will take us to the student's submission.&#xA;This space should be empty, but we can't assume this state." ClickType="CLICK_SINGLE" DisplayName="View submission" sap:VirtualizedContainerService.HintSize="590,178" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
                     <ui:Click.CursorPosition>
                       <ui:CursorPosition OffsetX="49" OffsetY="16" Position="TopLeft" />
                     </ui:Click.CursorPosition>
@@ -287,7 +287,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:Click>
-                  <ui:UiElementExists sap2010:Annotation.AnnotationText="If the assessment is past the due date, we will get an error message.&#xD;&#xA;However, it may be possible that the due date has not passed, so we can't assume that the button is always there." DisplayName="Check for Due Date Message" Exists="[dueDateMessageExists]" sap:VirtualizedContainerService.HintSize="590,193" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+                  <ui:UiElementExists sap2010:Annotation.AnnotationText="If the assessment is past the due date, we will get an error message.&#xA;However, it may be possible that the due date has not passed, so we can't assume that the button is always there." DisplayName="Check for Due Date Message" Exists="[dueDateMessageExists]" sap:VirtualizedContainerService.HintSize="590,193" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
                     <ui:UiElementExists.Target>
                       <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0cbdc351-c18f-4838-a697-7eb3cf78f7e7" InformativeScreenshot="532969e14356b5bc49aadcd7888c5324" Selector="&lt;webctrl tag='BUTTON' innertext='Got it!' /&gt;">
                         <ui:Target.TimeoutMS>
@@ -338,12 +338,14 @@
                       <InArgument x:TypeArguments="x:Int32">0</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <ui:InterruptibleWhile sap2010:Annotation.AnnotationText="Repeat the loop once per answer and upload each item." DisplayName="Process Each Answer" sap:VirtualizedContainerService.HintSize="590,2045" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+                  <ui:InterruptibleWhile sap2010:Annotation.AnnotationText="Repeat the loop once per answer and upload each item." DisplayName="Process Each Answer" sap:VirtualizedContainerService.HintSize="590,2462" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
                     <ui:InterruptibleWhile.Body>
-                      <Sequence DisplayName="Process Each Specific Answer" sap:VirtualizedContainerService.HintSize="554,1849" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                      <Sequence DisplayName="Process Each Specific Answer" sap:VirtualizedContainerService.HintSize="554,2266" sap2010:WorkflowViewState.IdRef="Sequence_11">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="x:String" Name="answerSelector" />
                           <Variable x:TypeArguments="x:Boolean" Name="doesAnswerExist" />
+                          <Variable x:TypeArguments="x:String" Name="uploadFilename" />
+                          <Variable x:TypeArguments="x:Boolean" Name="doesUploadExist" />
                         </Sequence.Variables>
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -389,14 +391,28 @@
                             </ui:Target>
                           </ui:UiElementExists.Target>
                         </ui:UiElementExists>
-                        <If sap2010:Annotation.AnnotationText="We need to check the answer exists. If there is already content, the upload area will not exist." Condition="[doesAnswerExist]" DisplayName="Handle Missing Answer" sap:VirtualizedContainerService.HintSize="512,1166" sap2010:WorkflowViewState.IdRef="If_5">
+                        <Assign sap2010:Annotation.AnnotationText="The source filename is where the upload will come from. It uses the files from the process download workflow." DisplayName="Generate source filename" sap:VirtualizedContainerService.HintSize="512,117" sap2010:WorkflowViewState.IdRef="Assign_9">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[uploadFilename]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[Path.Combine(submissionsWorkFolder, studentId.ToString, answerNumber.ToString + ".pdf")]</InArgument>
+                          </Assign.Value>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </Assign>
+                        <ui:PathExists DisplayName="Check upload file exists" Exists="[doesUploadExist]" sap:VirtualizedContainerService.HintSize="512,89" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[uploadFilename]" PathType="File" />
+                        <If sap2010:Annotation.AnnotationText="We need to check the answer exists. If there is already content, the upload area will not exist." Condition="[doesAnswerExist and doesUploadExist]" DisplayName="Handle Missing Answer" sap:VirtualizedContainerService.HintSize="512,1297" sap2010:WorkflowViewState.IdRef="If_5">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
                           <If.Then>
-                            <Sequence sap2010:Annotation.AnnotationText="The answer exists, therefore we want to upload the file." DisplayName="Handle Answer Exists" sap:VirtualizedContainerService.HintSize="476,948" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                            <Sequence sap2010:Annotation.AnnotationText="The answer exists, therefore we want to upload the file." DisplayName="Handle Answer Exists" sap:VirtualizedContainerService.HintSize="476,1079" sap2010:WorkflowViewState.IdRef="Sequence_13">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -420,19 +436,20 @@
                                   </scg:Dictionary>
                                 </sap:WorkflowViewStateService.ViewState>
                               </ui:Click>
-                              <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" sap2010:Annotation.AnnotationText="Since the dialog is another window we need to attach to it." DisplayName="Attach to Open File Dialog" sap:VirtualizedContainerService.HintSize="434,637" sap2010:WorkflowViewState.IdRef="WindowScope_1" InformativeScreenshot="9cda8993b2572f4aa1962aa70eefff06" Selector="&lt;wnd app='chrome.exe' cls='#32770' title='Open' /&gt;">
+                              <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" sap2010:Annotation.AnnotationText="Since the dialog is another window we need to attach to it." DisplayName="Attach to Open File Dialog" sap:VirtualizedContainerService.HintSize="434,768" sap2010:WorkflowViewState.IdRef="WindowScope_1" InformativeScreenshot="9cda8993b2572f4aa1962aa70eefff06" Selector="&lt;wnd app='chrome.exe' cls='#32770' title='Open' /&gt;">
                                 <ui:WindowScope.Body>
                                   <ActivityAction x:TypeArguments="x:Object">
                                     <ActivityAction.Argument>
                                       <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
                                     </ActivityAction.Argument>
-                                    <Sequence DisplayName="Enter Selected File" sap:VirtualizedContainerService.HintSize="376,460" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                                    <Sequence DisplayName="Enter Selected File" sap:VirtualizedContainerService.HintSize="376,591" sap2010:WorkflowViewState.IdRef="Sequence_12">
                                       <sap:WorkflowViewStateService.ViewState>
                                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                         </scg:Dictionary>
                                       </sap:WorkflowViewStateService.ViewState>
-                                      <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" sap2010:Annotation.AnnotationText="It is easier to type in the actual filename. We can generate the filename using some consistent rules. Trying to select it via browsing would be challenging." DisplayName="Type File Name" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,191" sap2010:WorkflowViewState.IdRef="TypeInto_2" SendWindowMessages="False" SimulateType="False" Text="c:\temp\error.png">
+                                      <ui:LogMessage DisplayName="Log the upload of the submission" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Trace" Message="[&quot;Uploading &quot; + uploadFilename + &quot; to &quot; + answerNumber.ToString]" />
+                                      <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" sap2010:Annotation.AnnotationText="It is easier to type in the actual filename. We can generate the filename using some consistent rules. Trying to select it via browsing would be challenging." DisplayName="Type File Name" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,191" sap2010:WorkflowViewState.IdRef="TypeInto_2" SendWindowMessages="False" SimulateType="False" Text="[uploadFilename]">
                                         <ui:TypeInto.Target>
                                           <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6962da51-97f2-4b9e-a433-5fcee92c459a" InformativeScreenshot="73cf6a79f72cb6cbc2ca461d40f04c5a" Selector="&lt;wnd ctrlid='1148' /&gt;&lt;wnd ctrlid='1148' /&gt;&lt;wnd ctrlid='1148' /&gt;">
                                             <ui:Target.TimeoutMS>

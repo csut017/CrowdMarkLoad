@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1123,1991" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1123,1951" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="28">
       <x:String>System.Activities</x:String>
@@ -32,7 +32,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="19">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="38">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -52,6 +52,16 @@
       <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="This sequence is the main workflow for the process." DisplayName="Main Workflow" sap:VirtualizedContainerService.HintSize="941,1886" sap2010:WorkflowViewState.IdRef="Sequence_4">
@@ -69,18 +79,10 @@
     <ui:LogMessage DisplayName="Log Process Start" sap:VirtualizedContainerService.HintSize="899,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Starting CrowdMark upload process&quot;]" />
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="This workflow is responsible for checking the initial state and loading all the configuration settings." DisplayName="Validate the Starting State" sap:VirtualizedContainerService.HintSize="899,154" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="ValidateStartingState.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <OutArgument x:TypeArguments="x:Boolean" x:Key="result">
-          <mva:VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="validationState" />
-        </OutArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="configFile">
-          <Literal x:TypeArguments="x:String">C:\temp\CrowdMarkImportSettings.txt</Literal>
-        </InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="submissionFilePath">
-          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="submissionFilePath" />
-        </OutArgument>
-        <OutArgument x:TypeArguments="x:Int32" x:Key="numberOfAnswers">
-          <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="numberOfAnswers" />
-        </OutArgument>
+        <OutArgument x:TypeArguments="x:Boolean" x:Key="result">[validationState]</OutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="configFile">C:\temp\CrowdMarkImportSettings.txt</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="submissionFilePath">[submissionFilePath]</OutArgument>
+        <OutArgument x:TypeArguments="x:Int32" x:Key="numberOfAnswers">[numberOfAnswers]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -105,18 +107,10 @@
           <ui:LogMessage DisplayName="Log Start of Processing" sap:VirtualizedContainerService.HintSize="410,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Starting submission processing&quot;]" />
           <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="This workflow will extract all the files from the download zip and prepare them for importing into CrowdMark." DisplayName="Process Download File" sap:VirtualizedContainerService.HintSize="410,169" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="ProcessDownload.xaml">
             <ui:InvokeWorkflowFile.Arguments>
-              <InArgument x:TypeArguments="x:String" x:Key="submissionFilePath">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="submissionFilePath" />
-              </InArgument>
-              <OutArgument x:TypeArguments="x:String" x:Key="submissionsWorkFolder">
-                <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="submissionsWorkFolder" />
-              </OutArgument>
-              <OutArgument x:TypeArguments="x:String" x:Key="uploadTrackingFile">
-                <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="uploadTrackingFile" />
-              </OutArgument>
-              <OutArgument x:TypeArguments="sd:DataTable" x:Key="students">
-                <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="submissionsToUpload" />
-              </OutArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="submissionFilePath">[submissionFilePath]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="submissionsWorkFolder">[submissionsWorkFolder]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="uploadTrackingFile">[uploadTrackingFile]</OutArgument>
+              <OutArgument x:TypeArguments="sd:DataTable" x:Key="students">[submissionsToUpload]</OutArgument>
             </ui:InvokeWorkflowFile.Arguments>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -159,6 +153,9 @@
                       </OutArgument>
                       <InArgument x:TypeArguments="x:Int32" x:Key="numberOfAnswers">
                         <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="numberOfAnswers" />
+                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="submissionsWorkFolder">
+                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="submissionsWorkFolder" />
                       </InArgument>
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
