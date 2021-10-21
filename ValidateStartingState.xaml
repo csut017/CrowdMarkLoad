@@ -4,6 +4,8 @@
     <x:Property Name="configFile" Type="InArgument(x:String)" />
     <x:Property Name="submissionFilePath" Type="OutArgument(x:String)" />
     <x:Property Name="numberOfAnswers" Type="OutArgument(x:Int32)" />
+    <x:Property Name="processMode" Type="OutArgument(x:String)" />
+    <x:Property Name="prepareOptions" Type="OutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
@@ -40,7 +42,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="26">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="52">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -66,6 +68,7 @@
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
@@ -131,9 +134,9 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <ui:LogMessage DisplayName="Log browser open to correct website" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Browser is open to CrowdMark&quot;]" />
-            <ui:UiElementExists sap2010:Annotation.AnnotationText="For the assignment check, we will check if the questions option exists.&#xD;&#xA;We're shortcutting the browser here. If this element exists, we're assuming the browser is ready. We'll display a generic error message below." DisplayName="Check assignment is open" Exists="[isBrowserReady]" sap:VirtualizedContainerService.HintSize="334,193" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
+            <ui:UiElementExists sap2010:Annotation.AnnotationText="For the assignment check, we will check if the questions option exists.&#xA;We're shortcutting the browser here. If this element exists, we're assuming the browser is ready. We'll display a generic error message below." DisplayName="Check assignment is open" Exists="[isBrowserReady]" sap:VirtualizedContainerService.HintSize="334,193" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
               <ui:UiElementExists.Target>
-                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1d250958-e449-40df-91f4-89ded63aef60" InformativeScreenshot="d9c1d9bccdf3518315ae412395a69423" Selector="&lt;html app='chrome.exe' title='Online Exam ENGSCI 111 | Crowdmark' /&gt;&lt;webctrl tag='A' aaname='Questions' class='main-sidebar__link icon--copy *ember-view' /&gt;">
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1d250958-e449-40df-91f4-89ded63aef60" InformativeScreenshot="d9c1d9bccdf3518315ae412395a69423" Selector="&lt;html app='chrome.exe' title='*Crowdmark' /&gt;&lt;webctrl tag='A' aaname='Questions' class='main-sidebar__link icon--copy *ember-view' /&gt;">
                   <ui:Target.TimeoutMS>
                     <InArgument x:TypeArguments="x:Int32" />
                   </ui:Target.TimeoutMS>
@@ -172,7 +175,7 @@
       </If>
       <ui:LogMessage DisplayName="Log end of browser check" sap:VirtualizedContainerService.HintSize="713,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Completed browser state check: &quot; + IIf(isBrowserReady, &quot;Browser is ready&quot;, &quot;Could not detect if browser was ready&quot;).tostring]" />
     </Sequence>
-    <Sequence sap2010:Annotation.AnnotationText="Next, load the configuration settings from a file. A file is easier to use for this scenario as we probably won't be running it on Orchestrator." DisplayName="Load configuration settings" sap:VirtualizedContainerService.HintSize="262,153" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <Sequence sap2010:Annotation.AnnotationText="Next, load the configuration settings from a file. A file is easier to use for this scenario as we probably won't be running it on Orchestrator." DisplayName="Load configuration settings" sap:VirtualizedContainerService.HintSize="1465,2481" sap2010:WorkflowViewState.IdRef="Sequence_4">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -180,25 +183,21 @@
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:LogMessage DisplayName="Log start of configuration check" sap:VirtualizedContainerService.HintSize="2144,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Checking configuration file &quot; + configFile]" />
-      <ui:PathExists sap2010:Annotation.AnnotationText="Make sure the file exists before doing anything with it." DisplayName="Check File Exists" Exists="[isConfigurationValid]" sap:VirtualizedContainerService.HintSize="2144,120" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[configFile]" PathType="File">
+      <ui:LogMessage DisplayName="Log start of configuration check" sap:VirtualizedContainerService.HintSize="1423,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Checking configuration file &quot; + configFile]" />
+      <ui:PathExists sap2010:Annotation.AnnotationText="Make sure the file exists before doing anything with it." DisplayName="Check File Exists" Exists="[isConfigurationValid]" sap:VirtualizedContainerService.HintSize="1423,120" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[configFile]" PathType="File">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:PathExists>
-      <If Condition="[isConfigurationValid]" DisplayName="Check if the file exists and process it" sap:VirtualizedContainerService.HintSize="2144,2873" sap2010:WorkflowViewState.IdRef="If_3">
+      <If Condition="[isConfigurationValid]" DisplayName="Check if the file exists and process it" sap:VirtualizedContainerService.HintSize="1423,1936" sap2010:WorkflowViewState.IdRef="If_3">
         <If.Then>
-          <Sequence sap2010:Annotation.AnnotationText="Load the configuration file and extract the details." DisplayName="Parse Configuration File" sap:VirtualizedContainerService.HintSize="1723,2715" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <Sequence sap2010:Annotation.AnnotationText="Load the configuration file and extract the details." DisplayName="Parse Configuration File" sap:VirtualizedContainerService.HintSize="1002,1778" sap2010:WorkflowViewState.IdRef="Sequence_6">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="configurationContents" />
               <Variable x:TypeArguments="s:String[]" Name="configurationSettings" />
-              <Variable x:TypeArguments="x:String" Name="errorMessage">
-                <Variable.Default>
-                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="string.Empty" />
-                </Variable.Default>
-              </Variable>
+              <Variable x:TypeArguments="x:String" Default="[string.Empty]" Name="errorMessage" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -206,15 +205,15 @@
                 <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:ReadTextFile sap2010:Annotation.AnnotationText="Read the file into a string variable" Content="[configurationContents]" DisplayName="Load all configuration settings" FileName="[configFile]" sap:VirtualizedContainerService.HintSize="1681,110" sap2010:WorkflowViewState.IdRef="ReadTextFile_1">
+            <ui:ReadTextFile sap2010:Annotation.AnnotationText="Read the file into a string variable" Content="[configurationContents]" DisplayName="Load all configuration settings" FileName="[configFile]" sap:VirtualizedContainerService.HintSize="960,110" sap2010:WorkflowViewState.IdRef="ReadTextFile_1">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:ReadTextFile>
-            <ui:LogMessage DisplayName="Log the config file contents" sap:VirtualizedContainerService.HintSize="1681,91" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Trace" Message="[configurationContents]" />
-            <Assign DisplayName="Split the contents into seperate lines" sap:VirtualizedContainerService.HintSize="1681,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <ui:LogMessage DisplayName="Log the config file contents" sap:VirtualizedContainerService.HintSize="960,91" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Trace" Message="[configurationContents]" />
+            <Assign DisplayName="Split the contents into seperate lines" sap:VirtualizedContainerService.HintSize="960,60" sap2010:WorkflowViewState.IdRef="Assign_4">
               <Assign.To>
                 <OutArgument x:TypeArguments="s:String[]">[configurationSettings]</OutArgument>
               </Assign.To>
@@ -222,11 +221,12 @@
                 <InArgument x:TypeArguments="s:String[]">[Split(configurationContents, environment.NewLine)]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[configurationSettings.Count = 2]" DisplayName="Check there are the right number of settings" sap:VirtualizedContainerService.HintSize="1681,2211" sap2010:WorkflowViewState.IdRef="If_4">
+            <If Condition="[configurationSettings.Count = 3]" DisplayName="Check there are the right number of settings" sap:VirtualizedContainerService.HintSize="960,1274" sap2010:WorkflowViewState.IdRef="If_4">
               <If.Then>
-                <Sequence sap2010:Annotation.AnnotationText="Need to change that the submissions file exists and that the number of answers is a natural number (integer &gt; 0)." DisplayName="Validate individual settings" sap:VirtualizedContainerService.HintSize="1260,2053" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                <Sequence sap2010:Annotation.AnnotationText="Need to change that the submissions file exists and that the number of answers is a natural number (integer &gt; 0)." DisplayName="Validate individual settings" sap:VirtualizedContainerService.HintSize="539,1116" sap2010:WorkflowViewState.IdRef="Sequence_8">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:Boolean" Name="submissionFileExists" />
+                    <Variable x:TypeArguments="s:String[]" Name="processValues" />
                   </Sequence.Variables>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -234,7 +234,7 @@
                       <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Assign DisplayName="Extract the submission file path" sap:VirtualizedContainerService.HintSize="1218,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+                  <Assign DisplayName="Extract the submission file path" sap:VirtualizedContainerService.HintSize="497,60" sap2010:WorkflowViewState.IdRef="Assign_6">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:String">[submissionFilePath]</OutArgument>
                     </Assign.To>
@@ -242,12 +242,12 @@
                       <InArgument x:TypeArguments="x:String">[configurationSettings(0)]</InArgument>
                     </Assign.Value>
                   </Assign>
-                  <ui:PathExists DisplayName="Check that it exists" Exists="[submissionFileExists]" sap:VirtualizedContainerService.HintSize="1218,89" sap2010:WorkflowViewState.IdRef="PathExists_2" Path="[submissionFilePath]" PathType="File" />
-                  <If sap2010:Annotation.AnnotationText="Check that the referenced submission file exists." Condition="[submissionFileExists]" DisplayName="Check submission file exists" sap:VirtualizedContainerService.HintSize="1218,671" sap2010:WorkflowViewState.IdRef="If_6">
+                  <ui:PathExists DisplayName="Check that it exists" Exists="[submissionFileExists]" sap:VirtualizedContainerService.HintSize="497,89" sap2010:WorkflowViewState.IdRef="PathExists_2" Path="[submissionFilePath]" PathType="File" />
+                  <If sap2010:Annotation.AnnotationText="Check that the referenced submission file exists." Condition="[submissionFileExists]" DisplayName="Check submission file exists" sap:VirtualizedContainerService.HintSize="497,93" sap2010:WorkflowViewState.IdRef="If_6">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                         <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
@@ -289,15 +289,21 @@
                       </Sequence>
                     </If.Else>
                   </If>
-                  <If Condition="[configurationSettings(1).IsNumeric]" DisplayName="Check the number of answers is a natural number" sap:VirtualizedContainerService.HintSize="1218,990" sap2010:WorkflowViewState.IdRef="If_5">
+                  <If Condition="[configurationSettings(1).IsNumeric]" DisplayName="Check the number of answers is a natural number" sap:VirtualizedContainerService.HintSize="497,51" sap2010:WorkflowViewState.IdRef="If_5">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
                     <If.Then>
-                      <Sequence DisplayName="Convert to a number and check if is greater than zero" sap:VirtualizedContainerService.HintSize="797,832" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                      <Sequence DisplayName="Convert to a number and check if is greater than zero" sap:VirtualizedContainerService.HintSize="304,243" sap2010:WorkflowViewState.IdRef="Sequence_12">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Assign DisplayName="Convert to number" sap:VirtualizedContainerService.HintSize="755,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+                        <Assign DisplayName="Convert to number" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_12">
                           <Assign.To>
                             <OutArgument x:TypeArguments="x:Int32">[numberOfAnswers]</OutArgument>
                           </Assign.To>
@@ -305,7 +311,13 @@
                             <InArgument x:TypeArguments="x:Int32">[int32.Parse(configurationsettings(1))]</InArgument>
                           </Assign.Value>
                         </Assign>
-                        <If Condition="[numberOfAnswers &gt; 0]" DisplayName="Check number of answers is greater than zero" sap:VirtualizedContainerService.HintSize="755,640" sap2010:WorkflowViewState.IdRef="If_7">
+                        <If Condition="[numberOfAnswers &gt; 0]" DisplayName="Check number of answers is greater than zero" sap:VirtualizedContainerService.HintSize="262,51" sap2010:WorkflowViewState.IdRef="If_7">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
                           <If.Then>
                             <ui:LogMessage DisplayName="Log number of answers" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_14" Level="Info" Message="[&quot;Number of answers is &quot; + numberOfAnswers.ToString]" />
                           </If.Then>
@@ -367,6 +379,75 @@
                       </Sequence>
                     </If.Else>
                   </If>
+                  <Assign DisplayName="Extract the process mode" sap:VirtualizedContainerService.HintSize="497,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[processMode]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[configurationSettings(2).ToUpper]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign sap:VirtualizedContainerService.HintSize="497,60" sap2010:WorkflowViewState.IdRef="Assign_18">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="s:String[]">[processValues]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="s:String[]">[processMode.Split({":"}, StringSplitOptions.RemoveEmptyEntries)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Switch x:TypeArguments="x:String" DisplayName="Validate that the mode is allowed" Expression="[processValues(0)]" sap:VirtualizedContainerService.HintSize="497,160" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+                    <Switch.Default>
+                      <Sequence DisplayName="Handle unknown modes" sap:VirtualizedContainerService.HintSize="376,482" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Assign DisplayName="Build invalid mode message" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_16">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["Unknown execution mode: " + processMode]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set configuration false due to invalid mode" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Boolean">[isConfigurationValid]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <ui:LogMessage DisplayName="Log invalid mode" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_19" Level="Error" Message="[errorMessage]" />
+                        <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" DisplayName="Display invalid mode message" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="MessageBox_8" Text="[errorMessage]" />
+                      </Sequence>
+                    </Switch.Default>
+                    <ui:LogMessage x:Key="FULL" DisplayName="Log full mode" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_17" Level="Info" Message="[&quot;Running in FULL mode&quot;]" />
+                    <ui:LogMessage x:Key="PREPARE" DisplayName="Log prepare mode" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_18" Level="Info" Message="[&quot;Running in PREPARE mode&quot;]" />
+                  </Switch>
+                  <ui:MultipleAssign DisplayName="Store process values" sap:VirtualizedContainerService.HintSize="497,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                    <ui:MultipleAssign.AssignOperations>
+                      <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[prepareOptions]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[string.Join(":", processValues.Skip(1))]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[processMode]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[processValues(0)]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                      </scg:List>
+                    </ui:MultipleAssign.AssignOperations>
+                  </ui:MultipleAssign>
                 </Sequence>
               </If.Then>
               <If.Else>
@@ -381,7 +462,7 @@
                       <OutArgument x:TypeArguments="x:String">[errorMessage]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
-                      <InArgument x:TypeArguments="x:String">["There are the wrong number of settings in " + configFile + ": expected 2 but found " + configurationsettings.Count.ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:String">["There are the wrong number of settings in " + configFile + ": expected 3 but found " + configurationsettings.Count.ToString]</InArgument>
                     </Assign.Value>
                   </Assign>
                   <Assign DisplayName="Set configuration false due to incorrect length" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_11">
@@ -407,7 +488,7 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <ui:LogMessage DisplayName="Log Missing File" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Error" Message="[&quot;Unable find configuration file &quot; + configFile]" />
-            <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" sap2010:Annotation.AnnotationText="Tell the user what is required to configure the process." DisplayName="Configuration file message" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="MessageBox_3" Text="[&quot;Unable to load configuration settings. Expected a file at &quot; + configFile + &quot; with the following lines:&quot; + Environment.NewLine + &quot;* Location of submission zip file&quot; + Environment.NewLine + &quot;* Number of questions&quot;]">
+            <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" sap2010:Annotation.AnnotationText="Tell the user what is required to configure the process." DisplayName="Configuration file message" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="MessageBox_3" Text="[String.Join(environment.NewLine, &quot;Unable to load configuration settings. Expected a file at &quot; + configFile + &quot; with the following lines:&quot;,&#xA;&quot;* Location of submission zip file&quot;,&#xA;&quot;* Number Of questions&quot;,&#xA;&quot;* Import mode (PREPARE,FULL)&quot;)]">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -417,7 +498,7 @@
           </Sequence>
         </If.Else>
       </If>
-      <ui:LogMessage DisplayName="Log end of configuration check" sap:VirtualizedContainerService.HintSize="2144,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Completed configuration check: &quot; + IIf(isConfigurationValid, &quot;Configuration settings loaded&quot;, &quot;Could not load configuration settings&quot;).tostring]" />
+      <ui:LogMessage DisplayName="Log end of configuration check" sap:VirtualizedContainerService.HintSize="1260,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Completed configuration check: &quot; + IIf(isConfigurationValid, &quot;Configuration settings loaded&quot;, &quot;Could not load configuration settings&quot;).tostring]" />
     </Sequence>
     <Assign sap2010:Annotation.AnnotationText="Everything has been validated - the process is ready to run." DisplayName="Set Result to Success" sap:VirtualizedContainerService.HintSize="262,102" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
