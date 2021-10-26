@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1404,3754" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1404,4430" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="33">
       <x:String>System.Activities</x:String>
@@ -37,7 +37,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="29">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="58">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -67,9 +67,11 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="This sequence is the main workflow for the process." DisplayName="Main Workflow" sap:VirtualizedContainerService.HintSize="1414,3649" sap2010:WorkflowViewState.IdRef="Sequence_4">
+  <Sequence sap2010:Annotation.AnnotationText="This sequence is the main workflow for the process." DisplayName="Main Workflow" sap:VirtualizedContainerService.HintSize="1414,4365" sap2010:WorkflowViewState.IdRef="Sequence_4">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="validationState" />
       <Variable x:TypeArguments="x:String" Name="submissionFilePath" />
@@ -99,9 +101,9 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:InvokeWorkflowFile>
-    <If Condition="[validationState]" DisplayName="Check Validation Was Successful" sap:VirtualizedContainerService.HintSize="1372,3070" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[validationState]" DisplayName="Check Validation Was Successful" sap:VirtualizedContainerService.HintSize="1372,3786" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <Sequence sap2010:Annotation.AnnotationText="The validation was successful, time to process and upload the submissions." DisplayName="Validated State Actions" sap:VirtualizedContainerService.HintSize="951,2912" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence sap2010:Annotation.AnnotationText="The validation was successful, time to process and upload the submissions." DisplayName="Validated State Actions" sap:VirtualizedContainerService.HintSize="951,3628" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <Sequence.Variables>
             <Variable x:TypeArguments="x:String" Name="uploadTrackingFile" />
             <Variable x:TypeArguments="x:String" Name="submissionsWorkFolder" />
@@ -115,7 +117,7 @@
               <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:LogMessage DisplayName="Log Start of Processing" sap:VirtualizedContainerService.HintSize="909,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Starting submission processing&quot;]" />
+          <ui:LogMessage DisplayName="Log Start of Processing" sap:VirtualizedContainerService.HintSize="909,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Preparing submissions for upload&quot;]" />
           <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="This workflow will extract all the files from the download zip and prepare them for importing into CrowdMark." DisplayName="Process Download File" sap:VirtualizedContainerService.HintSize="909,169" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="ProcessDownload.xaml">
             <ui:InvokeWorkflowFile.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="submissionFilePath">[submissionFilePath]</InArgument>
@@ -130,6 +132,13 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
           </ui:InvokeWorkflowFile>
+          <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" sap2010:Annotation.AnnotationText="Save the list of students to process." DataTable="[allSubmissions]" Delimitator="Comma" DisplayName="Save tracking file" FilePath="[uploadTrackingFile]" sap:VirtualizedContainerService.HintSize="909,183" sap2010:WorkflowViewState.IdRef="WriteCsvFile_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:WriteCsvFile>
           <Sequence DisplayName="Generate processing numbers" sap:VirtualizedContainerService.HintSize="909,66" sap2010:WorkflowViewState.IdRef="Sequence_15">
             <Sequence.Variables>
               <Variable x:TypeArguments="s:String[]" Name="splitOptions" />
@@ -208,14 +217,14 @@
               </If.Else>
             </If>
           </Sequence>
-          <If sap2010:Annotation.AnnotationText="Currently we only have two modes: FULL and PREPARE, but in future we might add more." Condition="[processMode=&quot;FULL&quot;]" DisplayName="Allow for different process modes" sap:VirtualizedContainerService.HintSize="909,2212" sap2010:WorkflowViewState.IdRef="If_3">
+          <If sap2010:Annotation.AnnotationText="Currently we only have two modes: FULL and PREPARE, but in future we might add more." Condition="[processMode=&quot;FULL&quot;]" DisplayName="Allow for different process modes" sap:VirtualizedContainerService.HintSize="909,2705" sap2010:WorkflowViewState.IdRef="If_3">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <If.Then>
-              <Sequence DisplayName="Perform a full upload" sap:VirtualizedContainerService.HintSize="873,2004" sap2010:WorkflowViewState.IdRef="Sequence_10">
+              <Sequence DisplayName="Perform a full upload" sap:VirtualizedContainerService.HintSize="873,2497" sap2010:WorkflowViewState.IdRef="Sequence_10">
                 <Sequence.Variables>
                   <Variable x:TypeArguments="x:Int32" Name="index" />
                 </Sequence.Variables>
@@ -224,13 +233,35 @@
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="[index]" DataTable="[allSubmissions]" DisplayName="Upload all submissions" sap:VirtualizedContainerService.HintSize="831,1912" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                <ui:LogMessage DisplayName="Log Start of Processing" sap:VirtualizedContainerService.HintSize="831,91" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Uploading submissions&quot;]" />
+                <If Condition="[not allSubmissions.Columns.Contains(&quot;Timestamp&quot;)]" DisplayName="Check for the timestamp column" sap:VirtualizedContainerService.HintSize="831,291" sap2010:WorkflowViewState.IdRef="If_8">
+                  <If.Then>
+                    <Sequence DisplayName="Add the new column" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:AddDataColumn x:TypeArguments="x:String" AllowDBNull="{x:Null}" AutoIncrement="{x:Null}" Column="{x:Null}" DefaultValue="{x:Null}" MaxLength="{x:Null}" Unique="{x:Null}" ColumnName="Timestamp" DataTable="[allSubmissions]" DisplayName="Add a timestamp column" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_1" />
+                    </Sequence>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_21">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </Sequence>
+                  </If.Else>
+                </If>
+                <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="[index]" DataTable="[allSubmissions]" DisplayName="Upload all submissions" sap:VirtualizedContainerService.HintSize="831,1943" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
                   <ui:ForEachRow.Body>
                     <ActivityAction x:TypeArguments="sd:DataRow">
                       <ActivityAction.Argument>
                         <DelegateInArgument x:TypeArguments="sd:DataRow" Name="submission" />
                       </ActivityAction.Argument>
-                      <Sequence DisplayName="Process submission" sap:VirtualizedContainerService.HintSize="797,1792" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                      <Sequence DisplayName="Process submission" sap:VirtualizedContainerService.HintSize="797,1823" sap2010:WorkflowViewState.IdRef="Sequence_8">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="x:String" Name="outcome" />
                           <Variable x:TypeArguments="x:Int32" Name="studentID" />
@@ -290,9 +321,9 @@
                             <InArgument x:TypeArguments="x:Int32">[int32.Parse(submission.Item(0).ToString)]</InArgument>
                           </Assign.Value>
                         </Assign>
-                        <If Condition="[string.IsNullOrEmpty(submission.Item(&quot;Status&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="755,938" sap2010:WorkflowViewState.IdRef="If_2">
+                        <If Condition="[string.IsNullOrEmpty(submission.Item(&quot;Status&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="755,969" sap2010:WorkflowViewState.IdRef="If_2">
                           <If.Then>
-                            <Sequence DisplayName="Process submission actions" sap:VirtualizedContainerService.HintSize="376,780" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                            <Sequence DisplayName="Process submission actions" sap:VirtualizedContainerService.HintSize="376,811" sap2010:WorkflowViewState.IdRef="Sequence_9">
                               <Sequence.Variables>
                                 <Variable x:TypeArguments="x:String" Name="processedAnswers" />
                               </Sequence.Variables>
@@ -311,7 +342,7 @@
                                   <OutArgument x:TypeArguments="x:String" x:Key="updatedAnswers">[processedAnswers]</OutArgument>
                                 </ui:InvokeWorkflowFile.Arguments>
                               </ui:InvokeWorkflowFile>
-                              <ui:MultipleAssign sap2010:Annotation.AnnotationText="Update the status for future runs as we don't want to repeat previous attempts." DisplayName="Update submission status" sap:VirtualizedContainerService.HintSize="334,171" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                              <ui:MultipleAssign sap2010:Annotation.AnnotationText="Update the status for future runs as we don't want to repeat previous attempts." DisplayName="Update submission status" sap:VirtualizedContainerService.HintSize="334,202" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
                                 <ui:MultipleAssign.AssignOperations>
                                   <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
                                     <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -328,6 +359,14 @@
                                       </ui:AssignOperation.To>
                                       <ui:AssignOperation.Value>
                                         <InArgument x:TypeArguments="x:Object">[processedAnswers]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:Object">[submission.Item("Timestamp")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:Object">[DateTime.Now.ToString("s")]</InArgument>
                                       </ui:AssignOperation.Value>
                                     </ui:AssignOperation>
                                   </scg:List>
