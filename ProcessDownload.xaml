@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ProcessDownload" this:ProcessDownload.submissionFilePath="C:\temp\submissions.zip" this:ProcessDownload.options="[string.Empty]" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/word" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:this="clr-namespace:" xmlns:uascw="clr-namespace:UiPath.Activities.System.Compression.Workflow;assembly=UiPath.System.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:upap="clr-namespace:UiPath.PDF.Activities.PDF;assembly=UiPath.PDF.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ProcessDownload" this:ProcessDownload.submissionFilePath="C:\temp\submissions.zip" this:ProcessDownload.options="[string.Empty]" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:this="clr-namespace:" xmlns:uascw="clr-namespace:UiPath.Activities.System.Compression.Workflow;assembly=UiPath.System.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:upap="clr-namespace:UiPath.PDF.Activities.PDF;assembly=UiPath.PDF.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="submissionFilePath" Type="InArgument(x:String)" />
     <x:Property Name="submissionsWorkFolder" Type="OutArgument(x:String)" />
@@ -9,10 +9,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1123,1007</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1171,997</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ProcessDownload_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="76">
+    <scg:List x:TypeArguments="x:String" Capacity="40">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -56,7 +56,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="62">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="33">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -90,10 +90,9 @@
       <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Word</AssemblyReference>
       <AssemblyReference>UiPath.Word.Activities</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="This sequence will process the the downloaded submissions and get them into a state that can be uploaded." DisplayName="Process Download" sap:VirtualizedContainerService.HintSize="526,942" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="This sequence will process the the downloaded submissions and get them into a state that can be uploaded." DisplayName="Process Download" sap:VirtualizedContainerService.HintSize="526,932" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="doesTrackingFileExist" />
       <Variable x:TypeArguments="x:Int32" Default="0" Name="numberToSkip" />
@@ -258,7 +257,7 @@
         </If>
       </Sequence>
     </Sequence>
-    <If sap2010:Annotation.AnnotationText="We can be in one of two modes: restart, where a previous upload has stopped unexpectedly, or new start, where there is no existing data." Condition="[doesTrackingFileExist]" DisplayName="Handle start mode" sap:VirtualizedContainerService.HintSize="484,398" sap2010:WorkflowViewState.IdRef="If_1">
+    <If sap2010:Annotation.AnnotationText="We can be in one of two modes: restart, where a previous upload has stopped unexpectedly, or new start, where there is no existing data." Condition="[doesTrackingFileExist]" DisplayName="Handle start mode" sap:VirtualizedContainerService.HintSize="484,388" sap2010:WorkflowViewState.IdRef="If_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -307,7 +306,7 @@
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap2010:Annotation.AnnotationText="In a new start scenario, we don't have any data. Therefore we need to extract the zip file and get the list of student IDs. We'll save these in the tracking file to simplify future starts with the same data." DisplayName="New start sequence" sap:VirtualizedContainerService.HintSize="526,976" sap2010:WorkflowViewState.IdRef="Sequence_6">
+        <Sequence sap2010:Annotation.AnnotationText="In a new start scenario, we don't have any data. Therefore we need to extract the zip file and get the list of student IDs. We'll save these in the tracking file to simplify future starts with the same data." DisplayName="New start sequence" sap:VirtualizedContainerService.HintSize="526,966" sap2010:WorkflowViewState.IdRef="Sequence_6">
           <Sequence.Variables>
             <Variable x:TypeArguments="x:String" Name="assignmentID" />
             <Variable x:TypeArguments="scg:Dictionary(x:String, x:Boolean)" Default="[new Dictionary(of string, Boolean)]" Name="uniqueIDs" />
@@ -321,7 +320,7 @@
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
           <ui:LogMessage DisplayName="Log new start scenario" sap:VirtualizedContainerService.HintSize="484,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Tracking file does not exist - new start mode&quot;]" />
-          <If Condition="[doesProcessTrackingFileExist]" sap:VirtualizedContainerService.HintSize="484,224" sap2010:WorkflowViewState.IdRef="If_9">
+          <If Condition="[doesProcessTrackingFileExist]" sap:VirtualizedContainerService.HintSize="484,214" sap2010:WorkflowViewState.IdRef="If_9">
             <If.Then>
               <Sequence DisplayName="Resume processing" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_24">
                 <Sequence.Variables>
@@ -705,9 +704,9 @@
                       </sap:WorkflowViewStateService.ViewState>
                     </ui:MultipleAssign>
                     <upap:GetPDFPageCount DisplayName="Get number of pages in submission" FileName="[filename]" sap:VirtualizedContainerService.HintSize="376,59" sap2010:WorkflowViewState.IdRef="GetPDFPageCount_1" PageCount="[numberOfPages]" />
-                    <ui:InterruptibleWhile DisplayName="Process each page in submission" sap:VirtualizedContainerService.HintSize="376,51" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
+                    <ui:InterruptibleWhile DisplayName="Process each page in submission" sap:VirtualizedContainerService.HintSize="973,2177" sap2010:WorkflowViewState.IdRef="InterruptibleWhile_1">
                       <ui:InterruptibleWhile.Body>
-                        <Sequence sap2010:Annotation.AnnotationText="For each page, we want to get the page text, then determine if the page is a question. If it is, we will save the page for that question." DisplayName="Process page" sap:VirtualizedContainerService.HintSize="1145,2812" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                        <Sequence sap2010:Annotation.AnnotationText="For each page, we want to get the page text, then determine if the page is a question. If it is, we will save the page for that question." DisplayName="Process page" sap:VirtualizedContainerService.HintSize="937,2012" sap2010:WorkflowViewState.IdRef="Sequence_14">
                           <Sequence.Variables>
                             <Variable x:TypeArguments="x:String" Name="pageText" />
                             <Variable x:TypeArguments="scg:IEnumerable(str:Match)" Name="regexMatches" />
@@ -718,7 +717,7 @@
                               <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
-                          <Assign DisplayName="Increment page number" sap:VirtualizedContainerService.HintSize="1103,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+                          <Assign DisplayName="Increment page number" sap:VirtualizedContainerService.HintSize="895,60" sap2010:WorkflowViewState.IdRef="Assign_7">
                             <Assign.To>
                               <OutArgument x:TypeArguments="x:Int32">[pageNumber]</OutArgument>
                             </Assign.To>
@@ -726,15 +725,15 @@
                               <InArgument x:TypeArguments="x:Int32">[pageNumber+1]</InArgument>
                             </Assign.Value>
                           </Assign>
-                          <ui:ReadPDFText PreserveFormatting="{x:Null}" DisplayName="Get page text" FileName="[filename]" sap:VirtualizedContainerService.HintSize="1103,59" sap2010:WorkflowViewState.IdRef="ReadPDFText_1" Range="[pageNumber.ToString]" Text="[pageText]" />
-                          <ui:Matches sap2010:Annotation.AnnotationText="We need to extract the question number from the page. If there is no question number, then we can assume it is either the academic integrity statement or a follow-on page.&#xA;We will match the first number after the candidate number on a new line." BuilderPattern="Candidate (\d+)\n(\d+)" DisplayName="Extract the question number" sap:VirtualizedContainerService.HintSize="1103,161" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[pageText]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;LIT&quot;,&quot;OperationName&quot;:&quot;Literal&quot;,&quot;OperationValue&quot;:&quot;Candidate &quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:1,&quot;OperationID&quot;:&quot;DIG&quot;,&quot;OperationName&quot;:&quot;Digit&quot;,&quot;OperationValue&quot;:&quot;\\d&quot;,&quot;QuantifierFirstValue&quot;:&quot;+&quot;,&quot;QuantifierID&quot;:&quot;OOM&quot;,&quot;QuantifierName&quot;:&quot;At least one (1 or more)&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:2,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;\\n&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null},{&quot;Index&quot;:3,&quot;OperationID&quot;:&quot;DIG&quot;,&quot;OperationName&quot;:&quot;Digit&quot;,&quot;OperationValue&quot;:&quot;\\d&quot;,&quot;QuantifierFirstValue&quot;:&quot;+&quot;,&quot;QuantifierID&quot;:&quot;OOM&quot;,&quot;QuantifierName&quot;:&quot;At least one (1 or more)&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(?:Candidate \d+\r\n)(\d+)" RegexOption="None" Result="[regexMatches]">
+                          <ui:ReadPDFText PreserveFormatting="{x:Null}" DisplayName="Get page text" FileName="[filename]" sap:VirtualizedContainerService.HintSize="895,59" sap2010:WorkflowViewState.IdRef="ReadPDFText_1" Range="[pageNumber.ToString]" Text="[pageText]" />
+                          <ui:Matches sap2010:Annotation.AnnotationText="We need to extract the question number from the page. If there is no question number, then we can assume it is either the academic integrity statement or a follow-on page.&#xA;We will match the first number after the candidate number on a new line." BuilderPattern="(?:Candidate \d+\r\n)(\r\n)?(\d+)" DisplayName="Extract the question number" sap:VirtualizedContainerService.HintSize="895,161" sap2010:WorkflowViewState.IdRef="Matches_1" Input="[pageText]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;ADV&quot;,&quot;OperationName&quot;:&quot;Advanced&quot;,&quot;OperationValue&quot;:&quot;(?:Candidate \\d+\\r\\n)(\\r\\n)?(\\d+)&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="(?:Candidate \d+\r\n)(\r\n)?(\d+)" RegexOption="None" Result="[regexMatches]">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
                           </ui:Matches>
-                          <If Condition="[regexMatches.count &gt; 0]" DisplayName="Check if we have a match" sap:VirtualizedContainerService.HintSize="1103,2391" sap2010:WorkflowViewState.IdRef="If_4">
+                          <If Condition="[regexMatches.count &gt; 0]" DisplayName="Check if we have a match" sap:VirtualizedContainerService.HintSize="895,1489" sap2010:WorkflowViewState.IdRef="If_4">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -742,13 +741,48 @@
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
                             <If.Then>
-                              <Sequence DisplayName="Handle Answer Number Match" sap:VirtualizedContainerService.HintSize="1067,2255" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                              <Sequence DisplayName="Handle Answer Number Match" sap:VirtualizedContainerService.HintSize="750,1342" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                                <Sequence.Variables>
+                                  <Variable x:TypeArguments="x:Int32" Name="thisQuestionNumber" />
+                                  <Variable x:TypeArguments="str:Match" Name="match" />
+                                  <Variable x:TypeArguments="x:String" Name="matchValue" />
+                                </Sequence.Variables>
                                 <sap:WorkflowViewStateService.ViewState>
                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                   </scg:Dictionary>
                                 </sap:WorkflowViewStateService.ViewState>
-                                <If sap2010:Annotation.AnnotationText="We need to extract the pages and save them as the question number." Condition="[lastStartPage &gt; 0]" DisplayName="Save found pages" sap:VirtualizedContainerService.HintSize="1025,1834" sap2010:WorkflowViewState.IdRef="If_5">
+                                <ui:MultipleAssign DisplayName="Get the page number so we can check if they have changed" sap:VirtualizedContainerService.HintSize="708,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_3">
+                                  <ui:MultipleAssign.AssignOperations>
+                                    <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                                      <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+                                        <ui:AssignOperation.To>
+                                          <OutArgument x:TypeArguments="str:Match">[match]</OutArgument>
+                                        </ui:AssignOperation.To>
+                                        <ui:AssignOperation.Value>
+                                          <InArgument x:TypeArguments="str:Match">[regexMatches(0)]</InArgument>
+                                        </ui:AssignOperation.Value>
+                                      </ui:AssignOperation>
+                                      <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+                                        <ui:AssignOperation.To>
+                                          <OutArgument x:TypeArguments="x:String">[matchValue]</OutArgument>
+                                        </ui:AssignOperation.To>
+                                        <ui:AssignOperation.Value>
+                                          <InArgument x:TypeArguments="x:String">[match.Groups(match.Groups.Count-1).Value]</InArgument>
+                                        </ui:AssignOperation.Value>
+                                      </ui:AssignOperation>
+                                      <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_8">
+                                        <ui:AssignOperation.To>
+                                          <OutArgument x:TypeArguments="x:Int32">[thisQuestionNumber]</OutArgument>
+                                        </ui:AssignOperation.To>
+                                        <ui:AssignOperation.Value>
+                                          <InArgument x:TypeArguments="x:Int32">[int32.Parse(matchValue)]</InArgument>
+                                        </ui:AssignOperation.Value>
+                                      </ui:AssignOperation>
+                                    </scg:List>
+                                  </ui:MultipleAssign.AssignOperations>
+                                </ui:MultipleAssign>
+                                <If sap2010:Annotation.AnnotationText="We need to extract the pages and save them as the question number." Condition="[thisQuestionNumber &lt;&gt; questionNumber]" DisplayName="Potential check for saving a question" sap:VirtualizedContainerService.HintSize="708,908" sap2010:WorkflowViewState.IdRef="If_5">
                                   <sap:WorkflowViewStateService.ViewState>
                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                       <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -757,32 +791,77 @@
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>
                                   <If.Then>
-                                    <Sequence DisplayName="Save previous question" sap:VirtualizedContainerService.HintSize="989,1627" sap2010:WorkflowViewState.IdRef="Sequence_16">
-                                      <Sequence.Variables>
-                                        <Variable x:TypeArguments="x:String" Name="rangeStatement" />
-                                        <Variable x:TypeArguments="x:String" Name="outputFilename" />
-                                        <Variable x:TypeArguments="x:Int32" Name="endOfRange" />
-                                        <Variable x:TypeArguments="s:String[]" Name="existingFiles" />
-                                      </Sequence.Variables>
+                                    <Sequence DisplayName="Handle a new question number" sap:VirtualizedContainerService.HintSize="563,730" sap2010:WorkflowViewState.IdRef="Sequence_38">
                                       <sap:WorkflowViewStateService.ViewState>
                                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                         </scg:Dictionary>
                                       </sap:WorkflowViewStateService.ViewState>
-                                      <Assign DisplayName="Calculate the last page" sap:VirtualizedContainerService.HintSize="947,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+                                      <If Condition="[(lastStartPage &gt; 0)]" DisplayName="Only save if we have pages" sap:VirtualizedContainerService.HintSize="521,451" sap2010:WorkflowViewState.IdRef="If_15">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <If.Then>
+                                          <Sequence DisplayName="Save previous question" sap:VirtualizedContainerService.HintSize="376,304" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                                            <Sequence.Variables>
+                                              <Variable x:TypeArguments="x:String" Name="outputFilename" />
+                                              <Variable x:TypeArguments="x:Int32" Name="endOfRange" />
+                                              <Variable x:TypeArguments="s:String[]" Name="existingFiles" />
+                                            </Sequence.Variables>
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <Assign DisplayName="Calculate the last page" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:Int32">[endOfRange]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:Int32">[pageNumber - 1]</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Save the current range of pages" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="SaveQuestions.xaml">
+                                              <ui:InvokeWorkflowFile.Arguments>
+                                                <InArgument x:TypeArguments="x:Int32" x:Key="startPage">
+                                                  <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="lastStartPage" />
+                                                </InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="endPage">
+                                                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="endOfRange.ToString" />
+                                                </InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="submissionsWorkFolder">
+                                                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="submissionsWorkFolder" />
+                                                </InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="studentID">
+                                                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="studentID" />
+                                                </InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="assignmentID">
+                                                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="assignmentID" />
+                                                </InArgument>
+                                                <InArgument x:TypeArguments="x:Int32" x:Key="questionNumber">
+                                                  <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="questionNumber" />
+                                                </InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="studentFolder">
+                                                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="studentFolder" />
+                                                </InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="filename">
+                                                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="filename" />
+                                                </InArgument>
+                                              </ui:InvokeWorkflowFile.Arguments>
+                                            </ui:InvokeWorkflowFile>
+                                          </Sequence>
+                                        </If.Then>
+                                      </If>
+                                      <Assign sap2010:Annotation.AnnotationText="Since we can't extract until we have all the pages, we need to store the starting page. When we get to the next question (or the end), then we can calculate the actual range." DisplayName="Store page number for next extraction" sap:VirtualizedContainerService.HintSize="521,147" sap2010:WorkflowViewState.IdRef="Assign_12">
                                         <Assign.To>
-                                          <OutArgument x:TypeArguments="x:Int32">[endOfRange]</OutArgument>
+                                          <OutArgument x:TypeArguments="x:Int32">[lastStartPage]</OutArgument>
                                         </Assign.To>
                                         <Assign.Value>
-                                          <InArgument x:TypeArguments="x:Int32">[pageNumber - 1]</InArgument>
-                                        </Assign.Value>
-                                      </Assign>
-                                      <Assign sap2010:Annotation.AnnotationText="Generate the range statement for the pages to extract." DisplayName="Generate range statement" sap:VirtualizedContainerService.HintSize="947,102" sap2010:WorkflowViewState.IdRef="Assign_10">
-                                        <Assign.To>
-                                          <OutArgument x:TypeArguments="x:String">[rangeStatement]</OutArgument>
-                                        </Assign.To>
-                                        <Assign.Value>
-                                          <InArgument x:TypeArguments="x:String">[IIf(endOfRange = lastStartPage, lastStartPage.ToString, lastStartPage.ToString + "-" + endOfRange.ToString).tostring]</InArgument>
+                                          <InArgument x:TypeArguments="x:Int32">[pageNumber]</InArgument>
                                         </Assign.Value>
                                         <sap:WorkflowViewStateService.ViewState>
                                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -790,136 +869,15 @@
                                           </scg:Dictionary>
                                         </sap:WorkflowViewStateService.ViewState>
                                       </Assign>
-                                      <Assign DisplayName="Check if an existing file exists" sap:VirtualizedContainerService.HintSize="947,60" sap2010:WorkflowViewState.IdRef="Assign_27">
-                                        <Assign.To>
-                                          <OutArgument x:TypeArguments="s:String[]">[existingFiles]</OutArgument>
-                                        </Assign.To>
-                                        <Assign.Value>
-                                          <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(submissionsWorkFolder, studentID + "_" + assignmentID + "_" + questionNumber.ToString + ".*", SearchOption.TopDirectoryOnly)]</InArgument>
-                                        </Assign.Value>
-                                      </Assign>
-                                      <Assign DisplayName="Generate output file name" sap:VirtualizedContainerService.HintSize="947,60" sap2010:WorkflowViewState.IdRef="Assign_11">
-                                        <Assign.To>
-                                          <OutArgument x:TypeArguments="x:String">[outputFilename]</OutArgument>
-                                        </Assign.To>
-                                        <Assign.Value>
-                                          <InArgument x:TypeArguments="x:String">[Path.Combine(studentFolder, questionNumber.ToString + ".pdf")]</InArgument>
-                                        </Assign.Value>
-                                      </Assign>
-                                      <If Condition="[existingFiles.Any]" DisplayName="If the download exists, use this instead of the PDF" sap:VirtualizedContainerService.HintSize="947,1093" sap2010:WorkflowViewState.IdRef="If_13">
-                                        <If.Then>
-                                          <Sequence DisplayName="Use existing download" sap:VirtualizedContainerService.HintSize="1115,940" sap2010:WorkflowViewState.IdRef="Sequence_33">
-                                            <Sequence.Variables>
-                                              <Variable x:TypeArguments="x:String" Name="fileExtension" />
-                                            </Sequence.Variables>
-                                            <sap:WorkflowViewStateService.ViewState>
-                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                              </scg:Dictionary>
-                                            </sap:WorkflowViewStateService.ViewState>
-                                            <Assign sap2010:Annotation.AnnotationText="CrowdMark cannot handle docx files, therefore we need to export them to a PDF for upload." DisplayName="Retrieve file extension" sap:VirtualizedContainerService.HintSize="1073,117" sap2010:WorkflowViewState.IdRef="Assign_29">
-                                              <Assign.To>
-                                                <OutArgument x:TypeArguments="x:String">[fileExtension]</OutArgument>
-                                              </Assign.To>
-                                              <Assign.Value>
-                                                <InArgument x:TypeArguments="x:String">[Path.GetExtension( existingFiles(0))]</InArgument>
-                                              </Assign.Value>
-                                              <sap:WorkflowViewStateService.ViewState>
-                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                                                </scg:Dictionary>
-                                              </sap:WorkflowViewStateService.ViewState>
-                                            </Assign>
-                                            <If Condition="[fileExtension.ToLower = &quot;.docx&quot;]" DisplayName="Check for docx file" sap:VirtualizedContainerService.HintSize="1073,691" sap2010:WorkflowViewState.IdRef="If_14">
-                                              <If.Then>
-                                                <Sequence DisplayName="Convert Word to PDF" sap:VirtualizedContainerService.HintSize="552,533" sap2010:WorkflowViewState.IdRef="Sequence_35">
-                                                  <sap:WorkflowViewStateService.ViewState>
-                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                                    </scg:Dictionary>
-                                                  </sap:WorkflowViewStateService.ViewState>
-                                                  <p:WordApplicationScope DisplayName="Connect to Word" FilePath="[existingFiles(0)]" sap:VirtualizedContainerService.HintSize="510,441" sap2010:WorkflowViewState.IdRef="WordApplicationScope_1">
-                                                    <p:WordApplicationScope.Body>
-                                                      <ActivityAction x:TypeArguments="ui:WordDocument">
-                                                        <ActivityAction.Argument>
-                                                          <DelegateInArgument x:TypeArguments="ui:WordDocument" Name="WordDocumentScope" />
-                                                        </ActivityAction.Argument>
-                                                        <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="476,332" sap2010:WorkflowViewState.IdRef="Sequence_37">
-                                                          <sap:WorkflowViewStateService.ViewState>
-                                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                                            </scg:Dictionary>
-                                                          </sap:WorkflowViewStateService.ViewState>
-                                                          <ui:LogMessage DisplayName="Log PDF export" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_18" Level="Trace" Message="[&quot;Exporting &quot; + existingFiles(0) + &quot; to &quot; + outputFilename]" />
-                                                          <p:WordExportToPdf DisplayName="Save Document as PDF" FilePath="[outputFilename]" sap:VirtualizedContainerService.HintSize="434,109" sap2010:WorkflowViewState.IdRef="WordExportToPdf_1" />
-                                                        </Sequence>
-                                                      </ActivityAction>
-                                                    </p:WordApplicationScope.Body>
-                                                  </p:WordApplicationScope>
-                                                </Sequence>
-                                              </If.Then>
-                                              <If.Else>
-                                                <Sequence DisplayName="Copy file to output folder" sap:VirtualizedContainerService.HintSize="476,480" sap2010:WorkflowViewState.IdRef="Sequence_36">
-                                                  <sap:WorkflowViewStateService.ViewState>
-                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                                    </scg:Dictionary>
-                                                  </sap:WorkflowViewStateService.ViewState>
-                                                  <Assign DisplayName="Update the extension to match the actual extension" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_28">
-                                                    <Assign.To>
-                                                      <OutArgument x:TypeArguments="x:String">[outputFilename]</OutArgument>
-                                                    </Assign.To>
-                                                    <Assign.Value>
-                                                      <InArgument x:TypeArguments="x:String">[Path.ChangeExtension(outputFilename, fileExtension)]</InArgument>
-                                                    </Assign.Value>
-                                                  </Assign>
-                                                  <ui:LogMessage DisplayName="Log question copy" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_17" Level="Trace" Message="[&quot;Copying &quot; + existingFiles(0) + &quot; to &quot; + outputFilename]" />
-                                                  <ui:CopyFile ContinueOnError="{x:Null}" Destination="[outputFilename]" DisplayName="Copy existing answer" sap:VirtualizedContainerService.HintSize="434,157" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="False" Path="[existingFiles(0)]" />
-                                                </Sequence>
-                                              </If.Else>
-                                            </If>
-                                          </Sequence>
-                                        </If.Then>
-                                        <If.Else>
-                                          <Sequence DisplayName="Extract pages as answer" sap:VirtualizedContainerService.HintSize="376,352" sap2010:WorkflowViewState.IdRef="Sequence_34">
-                                            <sap:WorkflowViewStateService.ViewState>
-                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                              </scg:Dictionary>
-                                            </sap:WorkflowViewStateService.ViewState>
-                                            <ui:LogMessage DisplayName="Log question extraction" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Trace" Message="[&quot;Extracting &quot; + outputFilename]" />
-                                            <upap:ExtractPDFPageRange sap2010:Annotation.AnnotationText="This activity is where the fun happens: we extract the relevant pages and save them as a new PDF." DisplayName="Extract question pages" FileName="[filename]" sap:VirtualizedContainerService.HintSize="334,129" sap2010:WorkflowViewState.IdRef="ExtractPDFPageRange_1" OutputFileName="[outputFilename]" Range="[rangeStatement]">
-                                              <sap:WorkflowViewStateService.ViewState>
-                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                                                </scg:Dictionary>
-                                              </sap:WorkflowViewStateService.ViewState>
-                                            </upap:ExtractPDFPageRange>
-                                          </Sequence>
-                                        </If.Else>
-                                      </If>
                                     </Sequence>
                                   </If.Then>
                                 </If>
-                                <Assign sap2010:Annotation.AnnotationText="The match will be a string, so we need to convert it to a number." DisplayName="Convert question number" sap:VirtualizedContainerService.HintSize="975,102" sap2010:WorkflowViewState.IdRef="Assign_8">
+                                <Assign sap2010:Annotation.AnnotationText="The match will be a string, so we need to convert it to a number." DisplayName="Convert question number" sap:VirtualizedContainerService.HintSize="708,102" sap2010:WorkflowViewState.IdRef="Assign_8">
                                   <Assign.To>
                                     <OutArgument x:TypeArguments="x:Int32">[questionNumber]</OutArgument>
                                   </Assign.To>
                                   <Assign.Value>
-                                    <InArgument x:TypeArguments="x:Int32">[int32.Parse(regexMatches(0).Groups(1).Value)]</InArgument>
-                                  </Assign.Value>
-                                  <sap:WorkflowViewStateService.ViewState>
-                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                                    </scg:Dictionary>
-                                  </sap:WorkflowViewStateService.ViewState>
-                                </Assign>
-                                <Assign sap2010:Annotation.AnnotationText="Since we can't extract until we have all the pages, we need to store the starting page. When we get to the next question (or the end), then we can calculate the actual range." DisplayName="Store page number for next extraction" sap:VirtualizedContainerService.HintSize="484,147" sap2010:WorkflowViewState.IdRef="Assign_12">
-                                  <Assign.To>
-                                    <OutArgument x:TypeArguments="x:Int32">[lastStartPage]</OutArgument>
-                                  </Assign.To>
-                                  <Assign.Value>
-                                    <InArgument x:TypeArguments="x:Int32">[pageNumber]</InArgument>
+                                    <InArgument x:TypeArguments="x:Int32">[thisQuestionNumber]</InArgument>
                                   </Assign.Value>
                                   <sap:WorkflowViewStateService.ViewState>
                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -951,7 +909,7 @@
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                       <If.Then>
-                        <Sequence DisplayName="Save all remaining pages" sap:VirtualizedContainerService.HintSize="376,594" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                        <Sequence DisplayName="Save all remaining pages" sap:VirtualizedContainerService.HintSize="376,346" sap2010:WorkflowViewState.IdRef="Sequence_17">
                           <Sequence.Variables>
                             <Variable x:TypeArguments="x:String" Name="rangeStatement" />
                             <Variable x:TypeArguments="x:String" Name="outputFilename" />
@@ -974,22 +932,34 @@
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
                           </Assign>
-                          <Assign DisplayName="Generate final output file name" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_14">
-                            <Assign.To>
-                              <OutArgument x:TypeArguments="x:String">[outputFilename]</OutArgument>
-                            </Assign.To>
-                            <Assign.Value>
-                              <InArgument x:TypeArguments="x:String">[Path.Combine(studentFolder, questionNumber.ToString + ".pdf")]</InArgument>
-                            </Assign.Value>
-                          </Assign>
-                          <ui:LogMessage DisplayName="Log final question extraction" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Trace" Message="[&quot;Extracting &quot; + outputFilename]" />
-                          <upap:ExtractPDFPageRange sap2010:Annotation.AnnotationText="This activity is where the fun happens: we extract the relevant pages and save them as a new PDF." DisplayName="Extract final question pages" FileName="[filename]" sap:VirtualizedContainerService.HintSize="334,129" sap2010:WorkflowViewState.IdRef="ExtractPDFPageRange_2" OutputFileName="[outputFilename]" Range="[rangeStatement]">
-                            <sap:WorkflowViewStateService.ViewState>
-                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                              </scg:Dictionary>
-                            </sap:WorkflowViewStateService.ViewState>
-                          </upap:ExtractPDFPageRange>
+                          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Save the current range of pages" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="SaveQuestions.xaml">
+                            <ui:InvokeWorkflowFile.Arguments>
+                              <InArgument x:TypeArguments="x:Int32" x:Key="startPage">
+                                <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="lastStartPage" />
+                              </InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="endPage">
+                                <Literal x:TypeArguments="x:String">end</Literal>
+                              </InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="submissionsWorkFolder">
+                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="submissionsWorkFolder" />
+                              </InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="studentID">
+                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="studentID" />
+                              </InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="assignmentID">
+                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="assignmentID" />
+                              </InArgument>
+                              <InArgument x:TypeArguments="x:Int32" x:Key="questionNumber">
+                                <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="questionNumber" />
+                              </InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="studentFolder">
+                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="studentFolder" />
+                              </InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="filename">
+                                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="filename" />
+                              </InArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                          </ui:InvokeWorkflowFile>
                         </Sequence>
                       </If.Then>
                     </If>
