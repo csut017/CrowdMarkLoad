@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1404,4430" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1404,4460" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="33">
       <x:String>System.Activities</x:String>
@@ -71,7 +71,7 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="This sequence is the main workflow for the process." DisplayName="Main Workflow" sap:VirtualizedContainerService.HintSize="1414,4365" sap2010:WorkflowViewState.IdRef="Sequence_4">
+  <Sequence sap2010:Annotation.AnnotationText="This sequence is the main workflow for the process." DisplayName="Main Workflow" sap:VirtualizedContainerService.HintSize="1414,4355" sap2010:WorkflowViewState.IdRef="Sequence_4">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="validationState" />
       <Variable x:TypeArguments="x:String" Name="submissionFilePath" />
@@ -88,12 +88,24 @@
     <ui:LogMessage DisplayName="Log Process Start" sap:VirtualizedContainerService.HintSize="1372,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Starting CrowdMark upload process&quot;]" />
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="This workflow is responsible for checking the initial state and loading all the configuration settings." DisplayName="Validate the Starting State" sap:VirtualizedContainerService.HintSize="1372,154" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="ValidateStartingState.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <OutArgument x:TypeArguments="x:Boolean" x:Key="result">[validationState]</OutArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="configFile">C:\temp\CrowdMarkImportSettings.txt</InArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="submissionFilePath">[submissionFilePath]</OutArgument>
-        <OutArgument x:TypeArguments="x:Int32" x:Key="numberOfAnswers">[numberOfAnswers]</OutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="processMode">[processMode]</OutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="prepareOptions">[options]</OutArgument>
+        <OutArgument x:TypeArguments="x:Boolean" x:Key="result">
+          <mva:VisualBasicReference x:TypeArguments="x:Boolean" ExpressionText="validationState" />
+        </OutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="configFile">
+          <Literal x:TypeArguments="x:String">C:\temp\CrowdMarkLoad\ImportSettings.txt</Literal>
+        </InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="submissionFilePath">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="submissionFilePath" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:Int32" x:Key="numberOfAnswers">
+          <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="numberOfAnswers" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="processMode">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="processMode" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="prepareOptions">
+          <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="options" />
+        </OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -101,7 +113,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:InvokeWorkflowFile>
-    <If Condition="[validationState]" DisplayName="Check Validation Was Successful" sap:VirtualizedContainerService.HintSize="1372,3786" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[validationState]" DisplayName="Check Validation Was Successful" sap:VirtualizedContainerService.HintSize="1372,3776" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
         <Sequence sap2010:Annotation.AnnotationText="The validation was successful, time to process and upload the submissions." DisplayName="Validated State Actions" sap:VirtualizedContainerService.HintSize="951,3628" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <Sequence.Variables>
