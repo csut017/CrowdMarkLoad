@@ -7,7 +7,7 @@ These instructions provide a high level overview of the process.
 1. Download the student submissions from Inspera (see below)
 1. Open a Chrome browser and navigate to the assignment
 1. Add a settings file (see below)
-1. (Optional) Add a question mapping file (see below)
+1. (Optional) Add a question config file (see below)
 1. Open the UiPath solution, and set the *configFile* argument for the **Validate the Starting State** activity
 1. Start the process (I normally recommend testing one or two submissions before doing the full load)
 
@@ -38,7 +38,7 @@ Use the following steps to download the submissions:
 
 The settings file is a plain text file that consists of three lines:
 1. The location of the zip file containing all the submissions (this is the file that was downloaded from Inspera).
-1. The number of questions (only required if there is no question mapping file).
+1. The number of questions (only required if there is no question config file).
 1. The type of import to run. This can be one of two settings:
     - **PREPARE**: processes all the submission files and splits them into seperate folders for upload to CrowdMark
     - **FULL**: prepares the submissions (as per PREPARE) and then uploads to CrowdMark.
@@ -63,9 +63,14 @@ C:\Temp\MedSci201-2022-2.zip
 PREPARE:0:2
 ```
 
-## Question Mapping File
+## Question Configuration File
 
-TODO
+The question configuration contains details on how the questions will be uploaded. It is a CSV file with the following columns:
+* `Question`: the number of the question (required). Free text, but should be a number between one and the number of questions.
+* `Mapping`: the CrowdMark question mapping (optional - defaults to "Q" plus the question number). Free text.
+* `Skip`: the number of pages to skip (optional - defaults to 0). Must be a valid integer greater than or equal to zero.
+
+The file must be stored in "C:\Temp\CrowdMarkLoad\questions.csv". (*TODO: make this a configuration setting in future.*)
 
 ## Troubleshooting
 
