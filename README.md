@@ -47,7 +47,9 @@ The settings file is a plain text file that consists of three lines:
 
     The import type can also take two optional parameters. The first parameters is the number of submissions to skip. The second is the number of submissions to process. These parameters must be seperated by a semi-colon (:).
 
-***Examples***
+The file must be called **ImportSettings.txt** and stored in **C:\Temp\CrowdMarkLoad**.
+
+### Examples
 
 Load a test with 16 questions and run a full prepare and import:
 ```
@@ -70,7 +72,7 @@ The question configuration contains details on how the questions will be uploade
 * `Mapping`: the CrowdMark question mapping (optional - defaults to "Q" plus the question number). Free text.
 * `Skip`: the number of pages to skip (optional - defaults to 0). Must be a valid integer greater than or equal to zero.
 
-The file must be stored in "C:\Temp\CrowdMarkLoad\questions.csv". (*TODO: make this a configuration setting in future.*)
+The file must be called **questions.csv** and stored in **C:\Temp\CrowdMarkLoad**. (*TODO: make this a configuration setting in future.*)
 
 ## Troubleshooting
 
