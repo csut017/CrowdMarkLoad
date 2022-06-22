@@ -74,6 +74,10 @@ The question configuration contains details on how the questions will be uploade
 
 The file must be called **questions.csv** and stored in **C:\Temp\CrowdMarkLoad**. (*TODO: make this a configuration setting in future.*)
 
+## Related Projects
+
+The [PdfSplitter](https://github.com/csut017/PdfSplitter) project provides a command-line utility for splitting a PDF file into smaller PDF files based on bookmarks in the PDF. The outputs from this tool are designed as inputs for the UiPath process in this project.
+
 ## Troubleshooting
 
 TODO
