@@ -14,7 +14,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>937,1654</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1171,1652</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ImportSubmission_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="34">
@@ -87,9 +87,10 @@
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Word</AssemblyReference>
       <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.Extensions.DependencyModel</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="This workflow will attach to the current open browser, find the student, and upload all the questions for their assessment." DisplayName="Upload Student Submission" sap:VirtualizedContainerService.HintSize="602,1589" sap2010:WorkflowViewState.IdRef="Sequence_3">
+  <Sequence sap2010:Annotation.AnnotationText="This workflow will attach to the current open browser, find the student, and upload all the questions for their assessment." DisplayName="Upload Student Submission" sap:VirtualizedContainerService.HintSize="602,1587" sap2010:WorkflowViewState.IdRef="Sequence_3">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" Name="questions" />
       <Variable x:TypeArguments="ui:Browser" Name="browser" />
@@ -100,8 +101,8 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Upload Has Started" sap:VirtualizedContainerService.HintSize="560,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Starting submission upload process for &quot; + studentId.ToString]" />
-    <Sequence DisplayName="Generate or retrieve question mappings" sap:VirtualizedContainerService.HintSize="560,68" sap2010:WorkflowViewState.IdRef="Sequence_26">
+    <ui:LogMessage DisplayName="Log Upload Has Started" sap:VirtualizedContainerService.HintSize="560,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Starting submission upload process for &quot; + studentId.ToString]" />
+    <Sequence DisplayName="Generate or retrieve question mappings" sap:VirtualizedContainerService.HintSize="560,66" sap2010:WorkflowViewState.IdRef="Sequence_26">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:Boolean" Name="isConfigurationValid" />
       </Sequence.Variables>
@@ -310,13 +311,13 @@
         </If.Else>
       </If>
     </Sequence>
-    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Attach to an existing open browser. &#xA;!! This action assumes the browser is open to the correct assignment. !!" BrowserType="Chrome" DisplayName="Attach to Open Browser" sap:VirtualizedContainerService.HintSize="560,1079" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="1093fc9d7c06786cc6418c138e997596" Selector="&lt;html app='chrome.exe' title='* | Crowdmark' /&gt;" UiBrowser="[browser]">
+    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Attach to an existing open browser. &#xA;!! This action assumes the browser is open to the correct assignment. !!" BrowserType="Chrome" DisplayName="Attach to Open Browser" sap:VirtualizedContainerService.HintSize="560,1085" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="1093fc9d7c06786cc6418c138e997596" Selector="&lt;html app='chrome.exe' title='* | Crowdmark' /&gt;" UiBrowser="[browser]">
       <ui:BrowserScope.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
-          <Sequence sap2010:Annotation.AnnotationText="This activity first finds the student, then uploads the individual components for each question." DisplayName="Upload Submission Questions" sap:VirtualizedContainerService.HintSize="526,889" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence sap2010:Annotation.AnnotationText="This activity first finds the student, then uploads the individual components for each question." DisplayName="Upload Submission Questions" sap:VirtualizedContainerService.HintSize="526,857" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="isStudentFound" />
               <Variable x:TypeArguments="x:Boolean" Name="areMultipleStudentsFound" />
@@ -329,7 +330,7 @@
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Sequence sap2010:Annotation.AnnotationText="First, we need to find the student.&#xA;This activity should not make any assumptions:&#xA;* Change to the students view&#xA;* Handle a missing student" DisplayName="Find the Student" sap:VirtualizedContainerService.HintSize="484,192" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <Sequence sap2010:Annotation.AnnotationText="First, we need to find the student.&#xA;This activity should not make any assumptions:&#xA;* Change to the students view&#xA;* Handle a missing student" DisplayName="Find the Student" sap:VirtualizedContainerService.HintSize="484,168" sap2010:WorkflowViewState.IdRef="Sequence_4">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -415,7 +416,7 @@
                 </sap:WorkflowViewStateService.ViewState>
               </ui:UiElementExists>
             </Sequence>
-            <If sap2010:Annotation.AnnotationText="Check the results of the search. If the student is found we can continue the uplaod process, otherwise we need to return an error." Condition="[areMultipleStudentsFound or not isStudentFound]" DisplayName="Process Search Results" sap:VirtualizedContainerService.HintSize="484,353" sap2010:WorkflowViewState.IdRef="If_2">
+            <If sap2010:Annotation.AnnotationText="Check the results of the search. If the student is found we can continue the uplaod process, otherwise we need to return an error." Condition="[areMultipleStudentsFound or not isStudentFound]" DisplayName="Process Search Results" sap:VirtualizedContainerService.HintSize="484,352" sap2010:WorkflowViewState.IdRef="If_2">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -424,7 +425,7 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap2010:Annotation.AnnotationText="We need to handle when either the student is not found or multiple students are found (both are error cases.)" DisplayName="Handle Missing or Multiple Students" sap:VirtualizedContainerService.HintSize="200,160" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <Sequence sap2010:Annotation.AnnotationText="We need to handle when either the student is not found or multiple students are found (both are error cases.)" DisplayName="Handle Missing or Multiple Students" sap:VirtualizedContainerService.HintSize="200,153" sap2010:WorkflowViewState.IdRef="Sequence_7">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -483,7 +484,7 @@
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Sequence sap2010:Annotation.AnnotationText="Now that we have the student, we can load all the components into their submission." DisplayName="Upload Assignment Components" sap:VirtualizedContainerService.HintSize="526,1970" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence sap2010:Annotation.AnnotationText="Now that we have the student, we can load all the components into their submission." DisplayName="Upload Assignment Components" sap:VirtualizedContainerService.HintSize="526,1983" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:Boolean" Name="dueDateMessageExists" />
                     <Variable x:TypeArguments="x:Int32" Name="answerNumber" />
@@ -496,8 +497,8 @@
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:LogMessage DisplayName="Log Student Found" sap:VirtualizedContainerService.HintSize="484,93" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Found student &quot; + studentId.ToString + &quot;: uploading submission&quot;]" />
-                  <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" sap2010:Annotation.AnnotationText="Clicking on this link will take us to the student's submission.&#xA;This space should be empty, but we can't assume this state." ClickType="CLICK_SINGLE" DisplayName="View submission" sap:VirtualizedContainerService.HintSize="484,182" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                  <ui:LogMessage DisplayName="Log Student Found" sap:VirtualizedContainerService.HintSize="484,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Found student &quot; + studentId.ToString + &quot;: uploading submission&quot;]" />
+                  <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" sap2010:Annotation.AnnotationText="Clicking on this link will take us to the student's submission.&#xA;This space should be empty, but we can't assume this state." ClickType="CLICK_SINGLE" DisplayName="View submission" sap:VirtualizedContainerService.HintSize="484,178" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
                     <ui:Click.CursorPosition>
                       <ui:CursorPosition OffsetX="49" OffsetY="16" Position="TopLeft" />
                     </ui:Click.CursorPosition>
@@ -514,7 +515,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:Click>
-                  <ui:UiElementExists sap2010:Annotation.AnnotationText="If the assessment is past the due date, we will get an error message.&#xA;However, it may be possible that the due date has not passed, so we can't assume that the button is always there." DisplayName="Check for Due Date Message" Exists="[dueDateMessageExists]" sap:VirtualizedContainerService.HintSize="484,198" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+                  <ui:UiElementExists sap2010:Annotation.AnnotationText="If the assessment is past the due date, we will get an error message.&#xA;However, it may be possible that the due date has not passed, so we can't assume that the button is always there." DisplayName="Check for Due Date Message" Exists="[dueDateMessageExists]" sap:VirtualizedContainerService.HintSize="484,193" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
                     <ui:UiElementExists.Target>
                       <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0cbdc351-c18f-4838-a697-7eb3cf78f7e7" InformativeScreenshot="532969e14356b5bc49aadcd7888c5324" Selector="&lt;webctrl tag='BUTTON' innertext='Got it!' /&gt;" TimeoutMS="2000">
                         <ui:Target.WaitForReady>
@@ -528,7 +529,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:UiElementExists>
-                  <If sap2010:Annotation.AnnotationText="This activity is very simple: it clicks on the &quot;Got It&quot; button if the button exists." Condition="[dueDateMessageExists]" DisplayName="Handle Due Date Message" sap:VirtualizedContainerService.HintSize="484,318" sap2010:WorkflowViewState.IdRef="If_1">
+                  <If sap2010:Annotation.AnnotationText="This activity is very simple: it clicks on the &quot;Got It&quot; button if the button exists." Condition="[dueDateMessageExists]" DisplayName="Handle Due Date Message" sap:VirtualizedContainerService.HintSize="484,345" sap2010:WorkflowViewState.IdRef="If_1">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -568,20 +569,20 @@
                       </scg:List>
                     </ui:MultipleAssign.AssignOperations>
                   </ui:MultipleAssign>
-                  <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[questions.AsEnumerable.Reverse.CopyToDataTable]" DisplayName="Process Each Answer" sap:VirtualizedContainerService.HintSize="484,281" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                  <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[questions.AsEnumerable.Reverse.CopyToDataTable]" DisplayName="Process Each Answer" sap:VirtualizedContainerService.HintSize="484,278" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
                     <ui:ForEachRow.Body>
                       <ActivityAction x:TypeArguments="sd:DataRow">
                         <ActivityAction.Argument>
                           <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
                         </ActivityAction.Argument>
-                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="242,160" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="242,158" sap2010:WorkflowViewState.IdRef="Sequence_14">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               <x:Boolean x:Key="IsPinned">False</x:Boolean>
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
-                          <Sequence DisplayName="Process Each Specific Answer" sap:VirtualizedContainerService.HintSize="460,1652" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                          <Sequence DisplayName="Process Each Specific Answer" sap:VirtualizedContainerService.HintSize="1799,4681" sap2010:WorkflowViewState.IdRef="Sequence_17">
                             <Sequence.Variables>
                               <Variable x:TypeArguments="x:String" Name="answerSelector" />
                               <Variable x:TypeArguments="x:Boolean" Name="doesAnswerExist" />
@@ -589,6 +590,7 @@
                               <Variable x:TypeArguments="x:String" Name="mapping" />
                               <Variable x:TypeArguments="s:String[]" Name="uploadCandidates" />
                               <Variable x:TypeArguments="x:Int32" Name="skipCount" />
+                              <Variable x:TypeArguments="x:Boolean" Name="isWithinSizeLimit" />
                             </Sequence.Variables>
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -596,7 +598,7 @@
                                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <ui:MultipleAssign DisplayName="Extract the answer values" sap:VirtualizedContainerService.HintSize="418,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_4">
+                            <ui:MultipleAssign DisplayName="Extract the answer values" sap:VirtualizedContainerService.HintSize="1757,160" sap2010:WorkflowViewState.IdRef="MultipleAssign_4">
                               <ui:MultipleAssign.AssignOperations>
                                 <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
                                   <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
@@ -626,8 +628,8 @@
                                 </scg:List>
                               </ui:MultipleAssign.AssignOperations>
                             </ui:MultipleAssign>
-                            <ui:LogMessage DisplayName="Log the current answer" sap:VirtualizedContainerService.HintSize="418,93" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Trace" Message="[&quot;Processing answer #&quot; + answerNumber.ToString]" />
-                            <Assign sap2010:Annotation.AnnotationText="We need to generate the selector to find each answer. Storing it means we can reuse it for both checking and clicking." DisplayName="Generate Selector" sap:VirtualizedContainerService.HintSize="418,120" sap2010:WorkflowViewState.IdRef="Assign_13">
+                            <ui:LogMessage DisplayName="Log the current answer" sap:VirtualizedContainerService.HintSize="1757,91" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Trace" Message="[&quot;Processing answer #&quot; + answerNumber.ToString]" />
+                            <Assign sap2010:Annotation.AnnotationText="We need to generate the selector to find each answer. Storing it means we can reuse it for both checking and clicking." DisplayName="Generate Selector" sap:VirtualizedContainerService.HintSize="1757,117" sap2010:WorkflowViewState.IdRef="Assign_13">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="x:String">[answerSelector]</OutArgument>
                               </Assign.To>
@@ -640,7 +642,7 @@
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
                             </Assign>
-                            <Assign sap:VirtualizedContainerService.HintSize="418,60" sap2010:WorkflowViewState.IdRef="Assign_16">
+                            <Assign sap:VirtualizedContainerService.HintSize="1757,60" sap2010:WorkflowViewState.IdRef="Assign_16">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="x:Boolean">[doesAnswerExist]</OutArgument>
                               </Assign.To>
@@ -648,10 +650,10 @@
                                 <InArgument x:TypeArguments="x:Boolean">False</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <ui:RetryScope ContinueOnError="True" DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="418,639" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="10" RetryInterval="00:00:00.1000000">
+                            <ui:RetryScope ContinueOnError="True" DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="1757,637" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="10" RetryInterval="00:00:00.1000000">
                               <ui:RetryScope.ActivityBody>
                                 <ActivityAction>
-                                  <Sequence DisplayName="Handle the missing upload slot" sap:VirtualizedContainerService.HintSize="376,373" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                                  <Sequence DisplayName="Handle the missing upload slot" sap:VirtualizedContainerService.HintSize="376,372" sap2010:WorkflowViewState.IdRef="Sequence_22">
                                     <sap:WorkflowViewStateService.ViewState>
                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -664,7 +666,7 @@
                                         </scg:Dictionary>
                                       </sap:WorkflowViewStateService.ViewState>
                                     </Delay>
-                                    <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Scroll down" sap:VirtualizedContainerService.HintSize="334,117" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="up" KeyModifiers="None" SpecialKey="True">
+                                    <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Scroll down" sap:VirtualizedContainerService.HintSize="334,116" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="up" KeyModifiers="None" SpecialKey="True">
                                       <ui:SendHotkey.Target>
                                         <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" Id="26db0d07-4de4-44ff-9d32-99661c24837e">
                                           <ui:Target.TimeoutMS>
@@ -693,7 +695,7 @@
                                 </ActivityFunc>
                               </ui:RetryScope.Condition>
                             </ui:RetryScope>
-                            <Assign sap2010:Annotation.AnnotationText="The answer files could have a range of extensions, cannot just assume they are PDFs." DisplayName="Check to see if any answer files exist" sap:VirtualizedContainerService.HintSize="418,120" sap2010:WorkflowViewState.IdRef="Assign_15">
+                            <Assign sap2010:Annotation.AnnotationText="The answer files could have a range of extensions, cannot just assume they are PDFs." DisplayName="Check to see if any answer files exist" sap:VirtualizedContainerService.HintSize="1757,117" sap2010:WorkflowViewState.IdRef="Assign_15">
                               <Assign.To>
                                 <OutArgument x:TypeArguments="s:String[]">[uploadCandidates]</OutArgument>
                               </Assign.To>
@@ -706,23 +708,80 @@
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
                             </Assign>
-                            <If sap2010:Annotation.AnnotationText="We need to check the answer exists. If there is already content, the upload area will not exist." Condition="[uploadCandidates.Any and doesAnswerExist]" DisplayName="Handle Missing Answer" sap:VirtualizedContainerService.HintSize="1757,2535" sap2010:WorkflowViewState.IdRef="If_6">
+                            <Assign sap2010:Annotation.AnnotationText="We will assume the filesize is valid" DisplayName="Set the filesize indicator" sap:VirtualizedContainerService.HintSize="1757,91" sap2010:WorkflowViewState.IdRef="Assign_25">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:Boolean">[isWithinSizeLimit]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                              </Assign.Value>
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
-                                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </Assign>
+                            <If sap2010:Annotation.AnnotationText="If the file exists, we need to check that it is within the allowed file size." Condition="[uploadCandidates.Any]" DisplayName="Check for filesize" sap:VirtualizedContainerService.HintSize="1757,460" sap2010:WorkflowViewState.IdRef="If_13">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <If.Then>
+                                <Sequence DisplayName="Get the file size" sap:VirtualizedContainerService.HintSize="304,252" sap2010:WorkflowViewState.IdRef="Sequence_30">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Int64" Name="fileSize" />
+                                  </Sequence.Variables>
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <Assign DisplayName="Retrieve file information" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_26">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Int64">[fileSize]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Int64">[new FileInfo(uploadCandidates.first).Length]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Check within the filesize limit" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_27">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Boolean">[isWithinSizeLimit]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Boolean">[fileSize &lt; 23700000]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </Sequence>
+                              </If.Then>
+                              <If.Else>
+                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_31">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </Sequence>
+                              </If.Else>
+                            </If>
+                            <If sap2010:Annotation.AnnotationText="We need to check the answer exists. If there is already content, the upload area will not exist." Condition="[uploadCandidates.Any and doesAnswerExist and isWithinSizeLimit]" DisplayName="Handle Missing Answer" sap:VirtualizedContainerService.HintSize="1757,2536" sap2010:WorkflowViewState.IdRef="If_6">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
                               <If.Then>
-                                <Sequence sap2010:Annotation.AnnotationText="The answer exists, therefore we want to upload the file." DisplayName="Handle Answer Exists" sap:VirtualizedContainerService.HintSize="915,2354" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                                <Sequence sap2010:Annotation.AnnotationText="The answer exists, therefore we want to upload the file." DisplayName="Handle Answer Exists" sap:VirtualizedContainerService.HintSize="915,2347" sap2010:WorkflowViewState.IdRef="Sequence_16">
                                   <sap:WorkflowViewStateService.ViewState>
                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                       <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>
-                                  <Assign sap2010:Annotation.AnnotationText="The source filename is where the upload will come from. It uses the files from the process download workflow." DisplayName="Generate source filename" sap:VirtualizedContainerService.HintSize="873,120" sap2010:WorkflowViewState.IdRef="Assign_14">
+                                  <Assign sap2010:Annotation.AnnotationText="The source filename is where the upload will come from. It uses the files from the process download workflow." DisplayName="Generate source filename" sap:VirtualizedContainerService.HintSize="873,117" sap2010:WorkflowViewState.IdRef="Assign_14">
                                     <Assign.To>
                                       <OutArgument x:TypeArguments="x:String">[uploadFilename]</OutArgument>
                                     </Assign.To>
@@ -735,7 +794,7 @@
                                       </scg:Dictionary>
                                     </sap:WorkflowViewStateService.ViewState>
                                   </Assign>
-                                  <Sequence sap2010:Annotation.AnnotationText="Prepare the file for the upload." DisplayName="Prepare upload" sap:VirtualizedContainerService.HintSize="873,112" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                                  <Sequence sap2010:Annotation.AnnotationText="Prepare the file for the upload." DisplayName="Prepare upload" sap:VirtualizedContainerService.HintSize="873,108" sap2010:WorkflowViewState.IdRef="Sequence_28">
                                     <Sequence.Variables>
                                       <Variable x:TypeArguments="x:String" Name="modifiedFile" />
                                       <Variable x:TypeArguments="x:Int32" Name="pageCount" />
@@ -757,8 +816,8 @@ Path.GetDirectoryName(uploadFileName),
 Path.GetFileNameWithoutExtension(uploadFilename) + "-load" + Path.GetExtension(uploadFilename))]</InArgument>
                                       </Assign.Value>
                                     </Assign>
-                                    <ui:Delete ContinueOnError="True" DisplayName="Delete any previous working file" sap:VirtualizedContainerService.HintSize="813,22" sap2010:WorkflowViewState.IdRef="Delete_1" Path="[modifiedFile]" />
-                                    <If Condition="[skipCount &gt; 0]" DisplayName="Need to check for any page skips" sap:VirtualizedContainerService.HintSize="813,305" sap2010:WorkflowViewState.IdRef="If_12">
+                                    <ui:Delete ContinueOnError="True" DisplayName="Delete any previous working file" sap:VirtualizedContainerService.HintSize="813,79" sap2010:WorkflowViewState.IdRef="Delete_1" Path="[modifiedFile]" />
+                                    <If Condition="[skipCount &gt; 0]" DisplayName="Need to check for any page skips" sap:VirtualizedContainerService.HintSize="813,315" sap2010:WorkflowViewState.IdRef="If_12">
                                       <If.Then>
                                         <upap:ExtractPDFPageRange DisplayName="Extract the pages to upload" FileName="[uploadFilename]" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExtractPDFPageRange_1" OutputFileName="[modifiedFile]" Range="[(skipCount + 1).ToString + &quot;-end&quot;]" />
                                       </If.Then>
@@ -780,16 +839,16 @@ Path.GetFileNameWithoutExtension(uploadFilename) + "-load" + Path.GetExtension(u
                                       </sap:WorkflowViewStateService.ViewState>
                                     </Assign>
                                   </Sequence>
-                                  <ui:RetryScope DisplayName="Attempt to click on the upload space" sap:VirtualizedContainerService.HintSize="873,508" sap2010:WorkflowViewState.IdRef="RetryScope_2" NumberOfRetries="3">
+                                  <ui:RetryScope DisplayName="Attempt to click on the upload space" sap:VirtualizedContainerService.HintSize="873,505" sap2010:WorkflowViewState.IdRef="RetryScope_2" NumberOfRetries="3">
                                     <ui:RetryScope.ActivityBody>
                                       <ActivityAction>
-                                        <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="376,242" sap2010:WorkflowViewState.IdRef="Sequence_29">
+                                        <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="376,240" sap2010:WorkflowViewState.IdRef="Sequence_29">
                                           <sap:WorkflowViewStateService.ViewState>
                                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                             </scg:Dictionary>
                                           </sap:WorkflowViewStateService.ViewState>
-                                          <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" sap2010:Annotation.AnnotationText="The first step is to click the upload area. This will then open a dialog box for selecting the file to upload." ClickType="CLICK_SINGLE" DisplayName="Click on Upload Area" sap:VirtualizedContainerService.HintSize="334,150" sap2010:WorkflowViewState.IdRef="Click_9" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                                          <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" sap2010:Annotation.AnnotationText="The first step is to click the upload area. This will then open a dialog box for selecting the file to upload." ClickType="CLICK_SINGLE" DisplayName="Click on Upload Area" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="Click_9" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
                                             <ui:Click.CursorPosition>
                                               <ui:CursorPosition OffsetX="652" OffsetY="41" Position="TopLeft" />
                                             </ui:Click.CursorPosition>
@@ -823,13 +882,13 @@ Path.GetFileNameWithoutExtension(uploadFilename) + "-load" + Path.GetExtension(u
                                       </ActivityFunc>
                                     </ui:RetryScope.Condition>
                                   </ui:RetryScope>
-                                  <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" sap2010:Annotation.AnnotationText="Since the dialog is another window we need to attach to it." DisplayName="Attach to Open File Dialog" sap:VirtualizedContainerService.HintSize="873,1371" sap2010:WorkflowViewState.IdRef="WindowScope_2" InformativeScreenshot="9cda8993b2572f4aa1962aa70eefff06" Selector="&lt;wnd app='chrome.exe' cls='#32770' title='Open' /&gt;">
+                                  <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" sap2010:Annotation.AnnotationText="Since the dialog is another window we need to attach to it." DisplayName="Attach to Open File Dialog" sap:VirtualizedContainerService.HintSize="873,1374" sap2010:WorkflowViewState.IdRef="WindowScope_2" InformativeScreenshot="9cda8993b2572f4aa1962aa70eefff06" Selector="&lt;wnd app='chrome.exe' cls='#32770' title='Open' /&gt;">
                                     <ui:WindowScope.Body>
                                       <ActivityAction x:TypeArguments="x:Object">
                                         <ActivityAction.Argument>
                                           <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
                                         </ActivityAction.Argument>
-                                        <Sequence DisplayName="Enter Selected File" sap:VirtualizedContainerService.HintSize="839,1194" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                                        <Sequence DisplayName="Enter Selected File" sap:VirtualizedContainerService.HintSize="839,1197" sap2010:WorkflowViewState.IdRef="Sequence_15">
                                           <Sequence.Variables>
                                             <Variable x:TypeArguments="x:Boolean" Name="fileUploadIsOpen" />
                                           </Sequence.Variables>
@@ -838,7 +897,7 @@ Path.GetFileNameWithoutExtension(uploadFilename) + "-load" + Path.GetExtension(u
                                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                             </scg:Dictionary>
                                           </sap:WorkflowViewStateService.ViewState>
-                                          <ui:LogMessage DisplayName="Log the upload of the submission" sap:VirtualizedContainerService.HintSize="797,93" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Trace" Message="[&quot;Uploading &quot; + uploadFilename + &quot; to &quot; + answerNumber.ToString]" />
+                                          <ui:LogMessage DisplayName="Log the upload of the submission" sap:VirtualizedContainerService.HintSize="797,91" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Trace" Message="[&quot;Uploading &quot; + uploadFilename + &quot; to &quot; + answerNumber.ToString]" />
                                           <ui:UiElementExists DisplayName="Element Exists 'Edit'" Exists="[fileUploadIsOpen]" sap:VirtualizedContainerService.HintSize="797,106" sap2010:WorkflowViewState.IdRef="UiElementExists_7">
                                             <ui:UiElementExists.Target>
                                               <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="bb1283ea-939f-423d-8595-90b797b2753e" InformativeScreenshot="74580bfad0546deafcd8d3ccf4f7af17" Selector="&lt;wnd ctrlid='1148' /&gt;&lt;wnd ctrlid='1148' /&gt;&lt;wnd ctrlid='1148' /&gt;" TimeoutMS="2000">
@@ -848,15 +907,15 @@ Path.GetFileNameWithoutExtension(uploadFilename) + "-load" + Path.GetExtension(u
                                               </ui:Target>
                                             </ui:UiElementExists.Target>
                                           </ui:UiElementExists>
-                                          <If Condition="[fileUploadIsOpen]" sap:VirtualizedContainerService.HintSize="797,823" sap2010:WorkflowViewState.IdRef="If_8">
+                                          <If Condition="[fileUploadIsOpen]" sap:VirtualizedContainerService.HintSize="797,828" sap2010:WorkflowViewState.IdRef="If_8">
                                             <If.Then>
-                                              <Sequence sap:VirtualizedContainerService.HintSize="376,674" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                                              <Sequence sap:VirtualizedContainerService.HintSize="376,671" sap2010:WorkflowViewState.IdRef="Sequence_20">
                                                 <sap:WorkflowViewStateService.ViewState>
                                                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                                   </scg:Dictionary>
                                                 </sap:WorkflowViewStateService.ViewState>
-                                                <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" sap2010:Annotation.AnnotationText="It is easier to type in the actual filename. We can generate the filename using some consistent rules. Trying to select it via browsing would be challenging." DisplayName="Type File Name" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,194" sap2010:WorkflowViewState.IdRef="TypeInto_3" SendWindowMessages="False" SimulateType="True" Text="[uploadFilename]">
+                                                <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" sap2010:Annotation.AnnotationText="It is easier to type in the actual filename. We can generate the filename using some consistent rules. Trying to select it via browsing would be challenging." DisplayName="Type File Name" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,191" sap2010:WorkflowViewState.IdRef="TypeInto_3" SendWindowMessages="False" SimulateType="True" Text="[uploadFilename]">
                                                   <ui:TypeInto.Target>
                                                     <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6962da51-97f2-4b9e-a433-5fcee92c459a" InformativeScreenshot="73cf6a79f72cb6cbc2ca461d40f04c5a" Selector="&lt;wnd ctrlid='1148' /&gt;&lt;wnd ctrlid='1148' /&gt;&lt;wnd ctrlid='1148' /&gt;">
                                                       <ui:Target.TimeoutMS>
@@ -947,15 +1006,15 @@ Path.GetFileNameWithoutExtension(uploadFilename) + "-load" + Path.GetExtension(u
                                 </Sequence>
                               </If.Then>
                               <If.Else>
-                                <If Condition="[not doesAnswerExist]" sap:VirtualizedContainerService.HintSize="797,335" sap2010:WorkflowViewState.IdRef="If_7">
+                                <If Condition="[not doesAnswerExist]" sap:VirtualizedContainerService.HintSize="797,341" sap2010:WorkflowViewState.IdRef="If_7">
                                   <If.Then>
-                                    <Sequence sap:VirtualizedContainerService.HintSize="376,185" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                                    <Sequence sap:VirtualizedContainerService.HintSize="376,183" sap2010:WorkflowViewState.IdRef="Sequence_18">
                                       <sap:WorkflowViewStateService.ViewState>
                                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                         </scg:Dictionary>
                                       </sap:WorkflowViewStateService.ViewState>
-                                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Warn" Message="[&quot;Unable to find upload for &quot; + answerNumber.ToString]" />
+                                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Warn" Message="[&quot;Unable to find upload for &quot; + answerNumber.ToString]" />
                                     </Sequence>
                                   </If.Then>
                                   <If.Else>
@@ -965,7 +1024,7 @@ Path.GetFileNameWithoutExtension(uploadFilename) + "-load" + Path.GetExtension(u
                                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                         </scg:Dictionary>
                                       </sap:WorkflowViewStateService.ViewState>
-                                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Warn" Message="[&quot;Unable to find input file for &quot; + answerNumber.ToString]" />
+                                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Warn" Message="[&quot;Unable to find valid input file for &quot; + answerNumber.ToString]" />
                                     </Sequence>
                                   </If.Else>
                                 </If>
@@ -1076,7 +1135,7 @@ Path.GetFileNameWithoutExtension(uploadFilename) + "-load" + Path.GetExtension(u
                 </Sequence>
               </If.Else>
             </If>
-            <Sequence sap2010:Annotation.AnnotationText="Clean up any other elements that might mess things in future." DisplayName="Final Clean Up" sap:VirtualizedContainerService.HintSize="484,128" sap2010:WorkflowViewState.IdRef="Sequence_10">
+            <Sequence sap2010:Annotation.AnnotationText="Clean up any other elements that might mess things in future." DisplayName="Final Clean Up" sap:VirtualizedContainerService.HintSize="484,123" sap2010:WorkflowViewState.IdRef="Sequence_10">
               <Sequence.Variables>
                 <Variable x:TypeArguments="x:Boolean" Name="clearSearchExists" />
               </Sequence.Variables>
@@ -1145,6 +1204,6 @@ Path.GetFileNameWithoutExtension(uploadFilename) + "-load" + Path.GetExtension(u
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:BrowserScope>
-    <ui:LogMessage DisplayName="Log Upload Has Finished" sap:VirtualizedContainerService.HintSize="560,93" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Finished submission upload process for &quot; + studentId.ToString]" />
+    <ui:LogMessage DisplayName="Log Upload Has Finished" sap:VirtualizedContainerService.HintSize="560,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Finished submission upload process for &quot; + studentId.ToString]" />
   </Sequence>
 </Activity>
