@@ -14,7 +14,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1034,1612</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1171,1612</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ImportSubmission_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="34">
@@ -88,7 +88,6 @@
       <AssemblyReference>UiPath.Word</AssemblyReference>
       <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.Extensions.DependencyModel</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="This workflow will attach to the current open browser, find the student, and upload all the questions for their assessment." DisplayName="Upload Student Submission" sap:VirtualizedContainerService.HintSize="602,1547" sap2010:WorkflowViewState.IdRef="Sequence_3">
@@ -318,7 +317,7 @@
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
-          <Sequence sap2010:Annotation.AnnotationText="This activity first finds the student, then uploads the individual components for each question." DisplayName="Upload Submission Questions" sap:VirtualizedContainerService.HintSize="526,858" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence sap2010:Annotation.AnnotationText="This activity first finds the student, then uploads the individual components for each question." DisplayName="Upload Submission Questions" sap:VirtualizedContainerService.HintSize="526,857" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="isStudentFound" />
               <Variable x:TypeArguments="x:Boolean" Name="areMultipleStudentsFound" />
@@ -331,7 +330,7 @@
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Sequence sap2010:Annotation.AnnotationText="First, we need to find the student.&#xA;This activity should not make any assumptions:&#xA;* Change to the students view&#xA;* Handle a missing student" DisplayName="Find the Student" sap:VirtualizedContainerService.HintSize="484,168" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <Sequence sap2010:Annotation.AnnotationText="First, we need to find the student.&#xA;This activity should not make any assumptions:&#xA;* Change to the students view&#xA;* Handle a missing student" DisplayName="Find the Student" sap:VirtualizedContainerService.HintSize="376,1234" sap2010:WorkflowViewState.IdRef="Sequence_4">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -340,16 +339,12 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <ui:RefreshBrowser Browser="[browser]" DisplayName="Refresh Browser" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="RefreshBrowser_1" />
-              <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" sap2010:Annotation.AnnotationText="Change to the students view. This view has a search box that we can use to find the actual student." ClickType="CLICK_SINGLE" DisplayName="Change to Students View" sap:VirtualizedContainerService.HintSize="334,150" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+              <ui:Click AlterIfDisabled="{x:Null}" CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" sap2010:Annotation.AnnotationText="Change to the students view. This view has a search box that we can use to find the actual student." ClickType="CLICK_SINGLE" DisplayName="Change to Students View" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
                 <ui:Click.CursorPosition>
                   <ui:CursorPosition OffsetX="86" OffsetY="24" Position="TopLeft" />
                 </ui:Click.CursorPosition>
                 <ui:Click.Target>
-                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="2eff7282-c361-4d6a-ae97-57a44767d5c7" InformativeScreenshot="99c8f5fe90687747d1f2c8d840d7c255" Selector="&lt;webctrl tag='A' class='main-sidebar__link icon--graduation-cap *ember-view' innertext='Students' /&gt;" WaitForReady="COMPLETE">
-                    <ui:Target.TimeoutMS>
-                      <InArgument x:TypeArguments="x:Int32" />
-                    </ui:Target.TimeoutMS>
-                  </ui:Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="2eff7282-c361-4d6a-ae97-57a44767d5c7" InformativeScreenshot="99c8f5fe90687747d1f2c8d840d7c255" Selector="&lt;webctrl tag='A' aaname='Students' class='ember-view*' /&gt;" TimeoutMS="2000" WaitForReady="COMPLETE" />
                 </ui:Click.Target>
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -357,14 +352,14 @@
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:Click>
-              <Delay sap2010:Annotation.AnnotationText="Wait for the change to the students view." DisplayName="Wait for Students View" Duration="00:00:02" sap:VirtualizedContainerService.HintSize="334,66" sap2010:WorkflowViewState.IdRef="Delay_2">
+              <Delay sap2010:Annotation.AnnotationText="Wait for the change to the students view." DisplayName="Wait for Students View" Duration="00:00:02" sap:VirtualizedContainerService.HintSize="334,64" sap2010:WorkflowViewState.IdRef="Delay_5">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </Delay>
-              <ui:TypeInto AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" sap2010:Annotation.AnnotationText="The student ID is passed as an argument to this workflow. The first step is to convert it to a string and search for it." ClickBeforeTyping="True" DisplayName="Enter the Student ID" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,194" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="True" Text="[studentId.ToString]">
+              <ui:TypeInto AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" sap2010:Annotation.AnnotationText="The student ID is passed as an argument to this workflow. The first step is to convert it to a string and search for it." ClickBeforeTyping="True" DisplayName="Enter the Student ID" EmptyField="False" sap:VirtualizedContainerService.HintSize="334,191" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="True" Text="[studentId.ToString]">
                 <ui:TypeInto.Target>
                   <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3648bffe-0f8a-48c9-9183-c0cfbf87aa02" InformativeScreenshot="7fb0e8615b802890083096ba2070cebc" Selector="&lt;webctrl tag='INPUT' /&gt;" WaitForReady="COMPLETE">
                     <ui:Target.TimeoutMS>
@@ -417,7 +412,7 @@
                 </sap:WorkflowViewStateService.ViewState>
               </ui:UiElementExists>
             </Sequence>
-            <If sap2010:Annotation.AnnotationText="Check the results of the search. If the student is found we can continue the uplaod process, otherwise we need to return an error." Condition="[areMultipleStudentsFound or not isStudentFound]" DisplayName="Process Search Results" sap:VirtualizedContainerService.HintSize="484,353" sap2010:WorkflowViewState.IdRef="If_2">
+            <If sap2010:Annotation.AnnotationText="Check the results of the search. If the student is found we can continue the uplaod process, otherwise we need to return an error." Condition="[areMultipleStudentsFound or not isStudentFound]" DisplayName="Process Search Results" sap:VirtualizedContainerService.HintSize="484,352" sap2010:WorkflowViewState.IdRef="If_2">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -485,7 +480,7 @@
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Sequence sap2010:Annotation.AnnotationText="Now that we have the student, we can load all the components into their submission." DisplayName="Upload Assignment Components" sap:VirtualizedContainerService.HintSize="767,2264" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence sap2010:Annotation.AnnotationText="Now that we have the student, we can load all the components into their submission." DisplayName="Upload Assignment Components" sap:VirtualizedContainerService.HintSize="200,138" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="x:Boolean" Name="dueDateMessageExists" />
                     <Variable x:TypeArguments="x:Int32" Name="answerNumber" />

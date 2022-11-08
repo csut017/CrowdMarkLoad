@@ -10,7 +10,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1171,991</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1034,987</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ValidateStartingState_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="25">
@@ -70,7 +70,6 @@
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Word</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="This sequence is responsible for checking that everything is ready for running. If this sequence completes successfully, we can assume that everything will be good for the rest of the process." DisplayName="Validate Starting State" sap:VirtualizedContainerService.HintSize="304,652" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -84,7 +83,7 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence sap2010:Annotation.AnnotationText="Need to check that the browser is open to CrowdMark and has an assignment open." DisplayName="Check Browser State" sap:VirtualizedContainerService.HintSize="262,138" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence sap2010:Annotation.AnnotationText="Need to check that the browser is open to CrowdMark and has an assignment open." DisplayName="Check Browser State" sap:VirtualizedContainerService.HintSize="755,1627" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:Boolean" Name="isBrowserOpen" />
       </Sequence.Variables>
@@ -121,7 +120,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:UiElementExists>
-      <If sap2010:Annotation.AnnotationText="If the browser is open, we need to check if it is set to the assignment. " Condition="[isBrowserOpen]" DisplayName="Handle browser check result" sap:VirtualizedContainerService.HintSize="713,595" sap2010:WorkflowViewState.IdRef="If_1">
+      <If sap2010:Annotation.AnnotationText="If the browser is open, we need to check if it is set to the assignment. " Condition="[isBrowserOpen]" DisplayName="Handle browser check result" sap:VirtualizedContainerService.HintSize="713,624" sap2010:WorkflowViewState.IdRef="If_1">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -137,10 +136,7 @@
             <ui:LogMessage DisplayName="Log browser open to correct website" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Browser is open to CrowdMark&quot;]" />
             <ui:UiElementExists sap2010:Annotation.AnnotationText="For the assignment check, we will check if the questions option exists.&#xA;We're shortcutting the browser here. If this element exists, we're assuming the browser is ready. We'll display a generic error message below." DisplayName="Check assignment is open" Exists="[isBrowserReady]" sap:VirtualizedContainerService.HintSize="334,193" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
               <ui:UiElementExists.Target>
-                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1d250958-e449-40df-91f4-89ded63aef60" InformativeScreenshot="d9c1d9bccdf3518315ae412395a69423" Selector="&lt;html app='chrome.exe' title='*Crowdmark' /&gt;&lt;webctrl tag='A' aaname='Questions' class='main-sidebar__link icon--copy *ember-view' /&gt;">
-                  <ui:Target.TimeoutMS>
-                    <InArgument x:TypeArguments="x:Int32" />
-                  </ui:Target.TimeoutMS>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1d250958-e449-40df-91f4-89ded63aef60" InformativeScreenshot="d9c1d9bccdf3518315ae412395a69423" Selector="&lt;html app='chrome.exe' title='* | Crowdmark' /&gt;&lt;webctrl tag='A' aaname='Questions' class='ember-view *' /&gt;" TimeoutMS="100">
                   <ui:Target.WaitForReady>
                     <InArgument x:TypeArguments="ui:WaitForReady" />
                   </ui:Target.WaitForReady>
@@ -155,7 +151,7 @@
           </Sequence>
         </If.Then>
       </If>
-      <If sap2010:Annotation.AnnotationText="If the browser is not ready we need to display an error message telling the user what is wrong so they can fix it." Condition="[not isBrowserReady]" DisplayName="Display error message" sap:VirtualizedContainerService.HintSize="713,280" sap2010:WorkflowViewState.IdRef="If_2">
+      <If sap2010:Annotation.AnnotationText="If the browser is not ready we need to display an error message telling the user what is wrong so they can fix it." Condition="[not isBrowserReady]" DisplayName="Display error message" sap:VirtualizedContainerService.HintSize="713,290" sap2010:WorkflowViewState.IdRef="If_2">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
@@ -176,7 +172,7 @@
       </If>
       <ui:LogMessage DisplayName="Log end of browser check" sap:VirtualizedContainerService.HintSize="713,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Completed browser state check: &quot; + IIf(isBrowserReady, &quot;Browser is ready&quot;, &quot;Could not detect if browser was ready&quot;).tostring]" />
     </Sequence>
-    <Sequence sap2010:Annotation.AnnotationText="Next, load the configuration settings from a file. A file is easier to use for this scenario as we probably won't be running it on Orchestrator." DisplayName="Load configuration settings" sap:VirtualizedContainerService.HintSize="1465,2598" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <Sequence sap2010:Annotation.AnnotationText="Next, load the configuration settings from a file. A file is easier to use for this scenario as we probably won't be running it on Orchestrator." DisplayName="Load configuration settings" sap:VirtualizedContainerService.HintSize="262,153" sap2010:WorkflowViewState.IdRef="Sequence_4">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -489,7 +485,7 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <ui:LogMessage DisplayName="Log Missing File" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Error" Message="[&quot;Unable find configuration file &quot; + configFile]" />
-            <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" sap2010:Annotation.AnnotationText="Tell the user what is required to configure the process." DisplayName="Configuration file message" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="MessageBox_3" Text="[String.Join(environment.NewLine, &quot;Unable to load configuration settings. Expected a file at &quot; + configFile + &quot; with the following lines:&quot;,&#xD;&#xA;&quot;* Location of submission zip file&quot;,&#xD;&#xA;&quot;* Number Of questions&quot;,&#xD;&#xA;&quot;* Import mode (PREPARE,FULL)[:Number to Skip[:Number to Process]]&quot;)]">
+            <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" sap2010:Annotation.AnnotationText="Tell the user what is required to configure the process." DisplayName="Configuration file message" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="MessageBox_3" Text="[String.Join(environment.NewLine, &quot;Unable to load configuration settings. Expected a file at &quot; + configFile + &quot; with the following lines:&quot;,&#xA;&quot;* Location of submission zip file&quot;,&#xA;&quot;* Number Of questions&quot;,&#xA;&quot;* Import mode (PREPARE,FULL)[:Number to Skip[:Number to Process]]&quot;)]">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
